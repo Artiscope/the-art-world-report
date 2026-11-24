@@ -1,0 +1,1060 @@
+{
+  "_how_to_edit": "This file is edited in Artiscope Digital Home. Each page is a list of sections.",
+  "shared": {
+    "header": {
+      "type": "header",
+      "visible": true,
+      "settings": {
+        "name": "The Art World Report",
+        "links": [
+          [
+            "Features",
+            "features/"
+          ],
+          [
+            "Sections",
+            "#sections"
+          ],
+          [
+            "The Briefing",
+            "briefing/"
+          ]
+        ],
+        "menu": [
+          [
+            "Industry News",
+            "industry-news/"
+          ],
+          [
+            "Galleries",
+            "galleries/"
+          ],
+          [
+            "Auction Houses",
+            "auction-houses/"
+          ],
+          [
+            "Art Business",
+            "art-business/"
+          ],
+          [
+            "Market Analysis",
+            "market-analysis/"
+          ],
+          [
+            "Reports",
+            "reports/"
+          ],
+          [
+            "The Briefing",
+            "briefing/"
+          ]
+        ],
+        "line": "The business of the international art industry"
+      }
+    },
+    "footer": {
+      "type": "footer",
+      "visible": true,
+      "settings": {
+        "tagline": "Understanding the Business of Art.",
+        "email": true,
+        "columns": [
+          {
+            "title": "Sections",
+            "links": [
+              [
+                "Industry News",
+                "industry-news/"
+              ],
+              [
+                "Galleries",
+                "galleries/"
+              ],
+              [
+                "Auction Houses",
+                "auction-houses/"
+              ],
+              [
+                "Art Business",
+                "art-business/"
+              ],
+              [
+                "Market Analysis",
+                "market-analysis/"
+              ],
+              [
+                "Reports",
+                "reports/"
+              ]
+            ]
+          },
+          {
+            "title": "Research areas",
+            "links": [
+              [
+                "Gallery business",
+                "research/gallery-business/"
+              ],
+              [
+                "Artist careers",
+                "research/artist-careers/"
+              ],
+              [
+                "Auction industry",
+                "research/auction-industry/"
+              ],
+              [
+                "Cultural partnerships",
+                "research/cultural-partnerships/"
+              ],
+              [
+                "Art marketing",
+                "research/art-marketing/"
+              ]
+            ]
+          },
+          {
+            "title": "The Report",
+            "links": [
+              [
+                "Features",
+                "features/"
+              ],
+              [
+                "The Briefing",
+                "briefing/"
+              ],
+              [
+                "About",
+                "about/"
+              ],
+              [
+                "Contact",
+                "contact/"
+              ],
+              [
+                "Privacy",
+                "privacy/"
+              ],
+              [
+                "Terms",
+                "terms/"
+              ]
+            ]
+          }
+        ],
+        "legal": "© 2026 The Art World Report. All rights reserved."
+      }
+    }
+  },
+  "groups": {
+    "top": [],
+    "popups": [],
+    "bottom": []
+  },
+  "pages": {
+    "home": {
+      "path": "index.html",
+      "title": "The Art World Report | The business of the international art industry",
+      "description": "The Art World Report explains how the art trade works: how galleries price and place work, what auction houses charge, and what the numbers in the headlines mean.",
+      "home": true,
+      "sections": [
+        {
+          "id": "top",
+          "type": "awr-opening",
+          "visible": true,
+          "settings": {
+            "size": "large",
+            "eyebrow": "The business of the international art industry",
+            "heading": "Understanding the *Business* of Art.",
+            "note": "",
+            "text": "The Art World Report explains how the art trade works: how galleries price and place work, what auction houses charge, and what the figures in the headlines actually mean. Every article names its sources, so you can check them.",
+            "wide": false,
+            "topics": [],
+            "email": false,
+            "button": "Read the features",
+            "button_href": "#features",
+            "link": "Latest news and reports",
+            "href": "#latest"
+          }
+        },
+        {
+          "id": "latest",
+          "type": "awr-features",
+          "visible": true,
+          "settings": {
+            "eyebrow": "Latest",
+            "heading": "News and *reports.*",
+            "only": "Industry News, Reports",
+            "folder": "",
+            "area": "",
+            "every": true,
+            "count": 6,
+            "empty": "Nothing has been published in this section yet.",
+            "band": "",
+            "close": false
+          }
+        },
+        {
+          "id": "features",
+          "type": "awr-features",
+          "visible": true,
+          "settings": {
+            "eyebrow": "Features",
+            "heading": "Nine features on how the trade *works.*",
+            "only": "",
+            "folder": "features",
+            "area": "",
+            "every": true,
+            "count": 6,
+            "empty": "Nothing has been published in this section yet.",
+            "band": "grey",
+            "close": false
+          }
+        },
+        {
+          "id": "sections",
+          "type": "awr-cards",
+          "visible": true,
+          "settings": {
+            "eyebrow": "Sections",
+            "heading": "What we cover.",
+            "band": "",
+            "source": "hand",
+            "cards": [
+              {
+                "title": "Industry News",
+                "text": "Recent changes at auction houses, galleries and fairs, with the source for every figure.",
+                "href": "industry-news/"
+              },
+              {
+                "title": "Galleries",
+                "text": "How galleries represent artists, set prices and stay in business.",
+                "href": "galleries/"
+              },
+              {
+                "title": "Auction Houses",
+                "text": "What auction houses charge, how their sales work and how to read the results.",
+                "href": "auction-houses/"
+              },
+              {
+                "title": "Art Business",
+                "text": "Art in hotels, public places and charity sales, and who pays for it.",
+                "href": "art-business/"
+              },
+              {
+                "title": "Market Analysis",
+                "text": "How prices are set and how they move between galleries, auctions and private sales.",
+                "href": "market-analysis/"
+              },
+              {
+                "title": "Reports",
+                "text": "Longer pieces built on the main industry data, explained in plain English.",
+                "href": "reports/"
+              }
+            ]
+          }
+        },
+        {
+          "id": "briefing",
+          "type": "awr-briefing",
+          "visible": true,
+          "settings": {
+            "style": "full",
+            "eyebrow": "Newsletter, coming soon",
+            "heading": "The Art Business *Briefing*",
+            "text": "A weekly email on the business of art, from auction fees to gallery economics. Sign-up is not open yet.",
+            "button": "Subscribe",
+            "href": "",
+            "main": false
+          }
+        },
+        {
+          "id": "research",
+          "type": "awr-cards",
+          "visible": true,
+          "settings": {
+            "eyebrow": "Research areas",
+            "heading": "Five subjects we return to.",
+            "band": "grey",
+            "source": "areas",
+            "cards": []
+          }
+        }
+      ]
+    },
+    "features": {
+      "path": "features/index.html",
+      "title": "Features | The Art World Report",
+      "description": "Commissioned features from The Art World Report on galleries, auction houses, partnerships and artist careers.",
+      "sections": [
+        {
+          "id": "features-1",
+          "type": "awr-opening",
+          "visible": true,
+          "settings": {
+            "size": "page",
+            "eyebrow": "Features",
+            "heading": "Nine features on how the trade *works.*",
+            "note": "",
+            "text": "",
+            "wide": false,
+            "topics": [],
+            "email": false,
+            "button": "",
+            "button_href": "",
+            "link": "",
+            "href": ""
+          }
+        },
+        {
+          "id": "features-2",
+          "type": "awr-features",
+          "visible": true,
+          "settings": {
+            "eyebrow": "",
+            "heading": "",
+            "only": "",
+            "folder": "features",
+            "area": "",
+            "every": true,
+            "count": 6,
+            "empty": "Nothing has been published in this section yet.",
+            "band": "",
+            "close": true
+          }
+        },
+        {
+          "id": "features-3",
+          "type": "awr-briefing",
+          "visible": true,
+          "settings": {
+            "style": "strip",
+            "eyebrow": "",
+            "heading": "The Art Business *Briefing*",
+            "text": "A weekly email on the business of art, from auction fees to gallery economics. Sign-up is not open yet.",
+            "button": "About the Briefing",
+            "href": "briefing/",
+            "main": false
+          }
+        }
+      ]
+    },
+    "industry-news": {
+      "path": "industry-news/index.html",
+      "title": "Industry News | The Art World Report",
+      "description": "Recent changes at auction houses, galleries and fairs, with the source for every figure.",
+      "sections": [
+        {
+          "id": "industry-news-1",
+          "type": "awr-opening",
+          "visible": true,
+          "settings": {
+            "size": "page",
+            "eyebrow": "Section",
+            "heading": "Industry News",
+            "note": "",
+            "text": "Recent changes at auction houses, galleries and fairs, with the source for every figure.",
+            "wide": false,
+            "topics": [],
+            "email": false,
+            "button": "",
+            "button_href": "",
+            "link": "",
+            "href": ""
+          }
+        },
+        {
+          "id": "industry-news-2",
+          "type": "awr-features",
+          "visible": true,
+          "settings": {
+            "eyebrow": "In this section",
+            "heading": "",
+            "only": "Industry News",
+            "folder": "",
+            "area": "",
+            "every": true,
+            "count": 6,
+            "empty": "Nothing has been published in this section yet.",
+            "band": "",
+            "close": true
+          }
+        },
+        {
+          "id": "industry-news-3",
+          "type": "awr-briefing",
+          "visible": true,
+          "settings": {
+            "style": "strip",
+            "eyebrow": "",
+            "heading": "The Art Business *Briefing*",
+            "text": "A weekly email on the business of art, from auction fees to gallery economics. Sign-up is not open yet.",
+            "button": "About the Briefing",
+            "href": "briefing/",
+            "main": false
+          }
+        }
+      ]
+    },
+    "galleries": {
+      "path": "galleries/index.html",
+      "title": "Galleries | The Art World Report",
+      "description": "How galleries represent artists, set prices and stay in business.",
+      "sections": [
+        {
+          "id": "galleries-1",
+          "type": "awr-opening",
+          "visible": true,
+          "settings": {
+            "size": "page",
+            "eyebrow": "Section",
+            "heading": "Galleries",
+            "note": "",
+            "text": "How galleries represent artists, set prices and stay in business.",
+            "wide": false,
+            "topics": [],
+            "email": false,
+            "button": "",
+            "button_href": "",
+            "link": "",
+            "href": ""
+          }
+        },
+        {
+          "id": "galleries-2",
+          "type": "awr-features",
+          "visible": true,
+          "settings": {
+            "eyebrow": "In this section",
+            "heading": "",
+            "only": "Galleries",
+            "folder": "",
+            "area": "",
+            "every": true,
+            "count": 6,
+            "empty": "Nothing has been published in this section yet.",
+            "band": "",
+            "close": true
+          }
+        },
+        {
+          "id": "galleries-3",
+          "type": "awr-links",
+          "visible": true,
+          "settings": {
+            "eyebrow": "Related research areas",
+            "band": "grey",
+            "links": [
+              {
+                "label": "Gallery business",
+                "href": "research/gallery-business/"
+              },
+              {
+                "label": "Artist careers",
+                "href": "research/artist-careers/"
+              }
+            ]
+          }
+        },
+        {
+          "id": "galleries-4",
+          "type": "awr-briefing",
+          "visible": true,
+          "settings": {
+            "style": "strip",
+            "eyebrow": "",
+            "heading": "The Art Business *Briefing*",
+            "text": "A weekly email on the business of art, from auction fees to gallery economics. Sign-up is not open yet.",
+            "button": "About the Briefing",
+            "href": "briefing/",
+            "main": false
+          }
+        }
+      ]
+    },
+    "auction-houses": {
+      "path": "auction-houses/index.html",
+      "title": "Auction Houses | The Art World Report",
+      "description": "What auction houses charge, how their sales work and how to read the results.",
+      "sections": [
+        {
+          "id": "auction-houses-1",
+          "type": "awr-opening",
+          "visible": true,
+          "settings": {
+            "size": "page",
+            "eyebrow": "Section",
+            "heading": "Auction Houses",
+            "note": "",
+            "text": "What auction houses charge, how their sales work and how to read the results.",
+            "wide": false,
+            "topics": [],
+            "email": false,
+            "button": "",
+            "button_href": "",
+            "link": "",
+            "href": ""
+          }
+        },
+        {
+          "id": "auction-houses-2",
+          "type": "awr-features",
+          "visible": true,
+          "settings": {
+            "eyebrow": "In this section",
+            "heading": "",
+            "only": "Auction Houses",
+            "folder": "",
+            "area": "",
+            "every": true,
+            "count": 6,
+            "empty": "Nothing has been published in this section yet.",
+            "band": "",
+            "close": true
+          }
+        },
+        {
+          "id": "auction-houses-3",
+          "type": "awr-links",
+          "visible": true,
+          "settings": {
+            "eyebrow": "Related research areas",
+            "band": "grey",
+            "links": [
+              {
+                "label": "Artist careers",
+                "href": "research/artist-careers/"
+              },
+              {
+                "label": "Auction industry",
+                "href": "research/auction-industry/"
+              },
+              {
+                "label": "Cultural partnerships",
+                "href": "research/cultural-partnerships/"
+              }
+            ]
+          }
+        },
+        {
+          "id": "auction-houses-4",
+          "type": "awr-briefing",
+          "visible": true,
+          "settings": {
+            "style": "strip",
+            "eyebrow": "",
+            "heading": "The Art Business *Briefing*",
+            "text": "A weekly email on the business of art, from auction fees to gallery economics. Sign-up is not open yet.",
+            "button": "About the Briefing",
+            "href": "briefing/",
+            "main": false
+          }
+        }
+      ]
+    },
+    "art-business": {
+      "path": "art-business/index.html",
+      "title": "Art Business | The Art World Report",
+      "description": "Art in hotels, public places and charity sales, and who pays for it.",
+      "sections": [
+        {
+          "id": "art-business-1",
+          "type": "awr-opening",
+          "visible": true,
+          "settings": {
+            "size": "page",
+            "eyebrow": "Section",
+            "heading": "Art Business",
+            "note": "",
+            "text": "Art in hotels, public places and charity sales, and who pays for it.",
+            "wide": false,
+            "topics": [],
+            "email": false,
+            "button": "",
+            "button_href": "",
+            "link": "",
+            "href": ""
+          }
+        },
+        {
+          "id": "art-business-2",
+          "type": "awr-features",
+          "visible": true,
+          "settings": {
+            "eyebrow": "In this section",
+            "heading": "",
+            "only": "Art Business",
+            "folder": "",
+            "area": "",
+            "every": true,
+            "count": 6,
+            "empty": "Nothing has been published in this section yet.",
+            "band": "",
+            "close": true
+          }
+        },
+        {
+          "id": "art-business-3",
+          "type": "awr-links",
+          "visible": true,
+          "settings": {
+            "eyebrow": "Related research areas",
+            "band": "grey",
+            "links": [
+              {
+                "label": "Cultural partnerships",
+                "href": "research/cultural-partnerships/"
+              },
+              {
+                "label": "Art marketing",
+                "href": "research/art-marketing/"
+              }
+            ]
+          }
+        },
+        {
+          "id": "art-business-4",
+          "type": "awr-briefing",
+          "visible": true,
+          "settings": {
+            "style": "strip",
+            "eyebrow": "",
+            "heading": "The Art Business *Briefing*",
+            "text": "A weekly email on the business of art, from auction fees to gallery economics. Sign-up is not open yet.",
+            "button": "About the Briefing",
+            "href": "briefing/",
+            "main": false
+          }
+        }
+      ]
+    },
+    "market-analysis": {
+      "path": "market-analysis/index.html",
+      "title": "Market Analysis | The Art World Report",
+      "description": "How prices are set and how they move between galleries, auctions and private sales.",
+      "sections": [
+        {
+          "id": "market-analysis-1",
+          "type": "awr-opening",
+          "visible": true,
+          "settings": {
+            "size": "page",
+            "eyebrow": "Section",
+            "heading": "Market Analysis",
+            "note": "",
+            "text": "How prices are set and how they move between galleries, auctions and private sales.",
+            "wide": false,
+            "topics": [],
+            "email": false,
+            "button": "",
+            "button_href": "",
+            "link": "",
+            "href": ""
+          }
+        },
+        {
+          "id": "market-analysis-2",
+          "type": "awr-features",
+          "visible": true,
+          "settings": {
+            "eyebrow": "In this section",
+            "heading": "",
+            "only": "Market Analysis",
+            "folder": "",
+            "area": "",
+            "every": true,
+            "count": 6,
+            "empty": "Nothing has been published in this section yet.",
+            "band": "",
+            "close": true
+          }
+        },
+        {
+          "id": "market-analysis-3",
+          "type": "awr-links",
+          "visible": true,
+          "settings": {
+            "eyebrow": "Related research areas",
+            "band": "grey",
+            "links": [
+              {
+                "label": "Artist careers",
+                "href": "research/artist-careers/"
+              },
+              {
+                "label": "Auction industry",
+                "href": "research/auction-industry/"
+              }
+            ]
+          }
+        },
+        {
+          "id": "market-analysis-4",
+          "type": "awr-briefing",
+          "visible": true,
+          "settings": {
+            "style": "strip",
+            "eyebrow": "",
+            "heading": "The Art Business *Briefing*",
+            "text": "A weekly email on the business of art, from auction fees to gallery economics. Sign-up is not open yet.",
+            "button": "About the Briefing",
+            "href": "briefing/",
+            "main": false
+          }
+        }
+      ]
+    },
+    "reports": {
+      "path": "reports/index.html",
+      "title": "Reports | The Art World Report",
+      "description": "Longer pieces built on the main industry data, explained in plain English.",
+      "sections": [
+        {
+          "id": "reports-1",
+          "type": "awr-opening",
+          "visible": true,
+          "settings": {
+            "size": "page",
+            "eyebrow": "Section",
+            "heading": "Reports",
+            "note": "",
+            "text": "Longer pieces built on the main industry data, explained in plain English.",
+            "wide": false,
+            "topics": [],
+            "email": false,
+            "button": "",
+            "button_href": "",
+            "link": "",
+            "href": ""
+          }
+        },
+        {
+          "id": "reports-2",
+          "type": "awr-features",
+          "visible": true,
+          "settings": {
+            "eyebrow": "In this section",
+            "heading": "",
+            "only": "Reports",
+            "folder": "",
+            "area": "",
+            "every": true,
+            "count": 6,
+            "empty": "Nothing has been published in this section yet.",
+            "band": "",
+            "close": true
+          }
+        },
+        {
+          "id": "reports-3",
+          "type": "awr-briefing",
+          "visible": true,
+          "settings": {
+            "style": "strip",
+            "eyebrow": "",
+            "heading": "The Art Business *Briefing*",
+            "text": "A weekly email on the business of art, from auction fees to gallery economics. Sign-up is not open yet.",
+            "button": "About the Briefing",
+            "href": "briefing/",
+            "main": false
+          }
+        }
+      ]
+    },
+    "briefing": {
+      "path": "briefing/index.html",
+      "title": "The Art Business Briefing | The Art World Report",
+      "description": "The Art Business Briefing will be a weekly email from The Art World Report on the business of art. Sign-up is not open yet.",
+      "sections": [
+        {
+          "id": "briefing-1",
+          "type": "awr-briefing",
+          "visible": true,
+          "settings": {
+            "style": "full",
+            "eyebrow": "Newsletter, coming soon",
+            "heading": "The Art Business *Briefing*",
+            "text": "A weekly email on the business of art, from auction fees to gallery economics. Sign-up is not open yet.",
+            "button": "Subscribe",
+            "href": "",
+            "main": true
+          }
+        }
+      ]
+    },
+    "about": {
+      "path": "about/index.html",
+      "title": "About | The Art World Report",
+      "description": "The Art World Report explains how the art trade works: how galleries price and place work, what auction houses charge, and what the numbers in the headlines mean.",
+      "sections": [
+        {
+          "id": "about-1",
+          "type": "awr-opening",
+          "visible": true,
+          "settings": {
+            "size": "page",
+            "eyebrow": "About",
+            "heading": "Understanding the *Business* of Art.",
+            "note": "",
+            "text": "The Art World Report is about the business side of art: galleries, auction houses, fairs, and the money that moves between them. We write for collectors, artists and anyone else who wants to know how the trade works.",
+            "wide": true,
+            "topics": [],
+            "email": false,
+            "button": "",
+            "button_href": "",
+            "link": "",
+            "href": ""
+          }
+        },
+        {
+          "id": "about-2",
+          "type": "awr-cards",
+          "visible": true,
+          "settings": {
+            "eyebrow": "How we work",
+            "heading": "",
+            "band": "grey",
+            "source": "hand",
+            "cards": [
+              {
+                "title": "Sourced",
+                "text": "Every fact and figure comes from a published source, and we link to it in the article and list it at the end.",
+                "href": ""
+              },
+              {
+                "title": "Nothing invented",
+                "text": "We do not make up quotes, interviews, examples or statistics. When we could not find something out, we say so.",
+                "href": ""
+              },
+              {
+                "title": "Prices as reported",
+                "text": "Auction prices keep their original currency, and we say whether a figure is the hammer price or includes the buyer's premium.",
+                "href": ""
+              },
+              {
+                "title": "Who is behind a figure",
+                "text": "When a figure comes from someone with an interest in it, such as a consultancy that sells the service it measures, we point that out.",
+                "href": ""
+              },
+              {
+                "title": "Not advice",
+                "text": "We explain how the market works. We do not tell anyone what to buy or sell.",
+                "href": ""
+              },
+              {
+                "title": "Corrections",
+                "text": "If we get something wrong, [tell us](contact/). We will check it and put it right.",
+                "href": ""
+              }
+            ]
+          }
+        },
+        {
+          "id": "about-3",
+          "type": "awr-links",
+          "visible": true,
+          "settings": {
+            "eyebrow": "Sections",
+            "band": "",
+            "links": [
+              {
+                "label": "Industry News",
+                "href": "industry-news/"
+              },
+              {
+                "label": "Galleries",
+                "href": "galleries/"
+              },
+              {
+                "label": "Auction Houses",
+                "href": "auction-houses/"
+              },
+              {
+                "label": "Art Business",
+                "href": "art-business/"
+              },
+              {
+                "label": "Market Analysis",
+                "href": "market-analysis/"
+              },
+              {
+                "label": "Reports",
+                "href": "reports/"
+              }
+            ]
+          }
+        },
+        {
+          "id": "about-4",
+          "type": "awr-briefing",
+          "visible": true,
+          "settings": {
+            "style": "strip",
+            "eyebrow": "",
+            "heading": "The Art Business *Briefing*",
+            "text": "A weekly email on the business of art, from auction fees to gallery economics. Sign-up is not open yet.",
+            "button": "About the Briefing",
+            "href": "briefing/",
+            "main": false
+          }
+        }
+      ]
+    },
+    "contact": {
+      "path": "contact/index.html",
+      "title": "Contact | The Art World Report",
+      "description": "Contact The Art World Report with questions, corrections or anything about our reporting.",
+      "sections": [
+        {
+          "id": "contact-1",
+          "type": "awr-opening",
+          "visible": true,
+          "settings": {
+            "size": "tall",
+            "eyebrow": "Contact",
+            "heading": "Write to us.",
+            "note": "",
+            "text": "Questions, corrections and story ideas all go to the same inbox. If you are pointing out an error, please include the page and the source that shows it.",
+            "wide": false,
+            "topics": [],
+            "email": true,
+            "button": "",
+            "button_href": "",
+            "link": "",
+            "href": ""
+          }
+        }
+      ]
+    },
+    "privacy": {
+      "path": "privacy/index.html",
+      "title": "Privacy | The Art World Report",
+      "description": "How The Art World Report handles information about visitors: what is collected, by whom, and why.",
+      "sections": [
+        {
+          "id": "privacy-1",
+          "type": "awr-opening",
+          "visible": true,
+          "settings": {
+            "size": "page",
+            "eyebrow": "The Report",
+            "heading": "Privacy",
+            "note": "Last updated 24 November 2026",
+            "text": "",
+            "wide": false,
+            "topics": [],
+            "email": false,
+            "button": "",
+            "button_href": "",
+            "link": "",
+            "href": ""
+          }
+        },
+        {
+          "id": "privacy-2",
+          "type": "awr-text",
+          "visible": true,
+          "settings": {
+            "standfirst": "",
+            "body": "<p>This page explains what happens to information about you when you visit The Art World Report. The short version: we do not run analytics, we do not use advertising cookies, and we do not ask you for personal details.</p>\n\n<h2>Who we are</h2>\n<p>The Art World Report is published at theartworldreport.com. You can reach us at <a href=\"mailto:info@grovegallery.com\">info@grovegallery.com</a>.</p>\n\n<h2>What the site itself collects</h2>\n<p>Nothing. The site is a set of plain web pages. It has no accounts, no comments and no tracking code, and it does not set cookies.</p>\n<p>The newsletter form on the Briefing page is not connected to any mailing service yet. If you type an email address into it, the address stays in your browser and is not sent anywhere. We will update this page before sign-up opens.</p>\n\n<h2>Services the site relies on</h2>\n<p>Three outside services are involved when a page loads. Each one receives the technical details that any website receives, such as your IP address and browser type.</p>\n<ul>\n<li><strong>GitHub Pages</strong> hosts the site. GitHub may keep server logs for security and to run the service. See the <a href=\"https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement\">GitHub privacy statement</a>.</li>\n<li><strong>Google Fonts</strong> supplies the typefaces. See <a href=\"https://fonts.google.com/faq\">the Google Fonts FAQ</a>, which covers privacy.</li>\n<li><strong>jsDelivr</strong> supplies a small script that makes scrolling smoother. See <a href=\"https://www.jsdelivr.com/terms/privacy-policy-jsdelivr-net\">jsDelivr's terms and policies</a>. If it does not load, the site works as normal.</li>\n</ul>\n\n<h2>If you email us</h2>\n<p>We will see your email address and anything you include in the message. We use it only to reply, and we do not add you to any list.</p>\n\n<h2>Links to other sites</h2>\n<p>Our articles link to their sources. Those sites have their own privacy policies, and what happens there is up to them.</p>\n\n<h2>Your rights</h2>\n<p>If you are in the UK or the EU, data protection law gives you rights over personal information held about you, including the right to see it and to have it deleted. As we do not collect anything through the site, in practice this applies only to emails you have sent us. Write to the address above and we will deal with it. You can also complain to the <a href=\"https://ico.org.uk/\">Information Commissioner's Office</a>.</p>\n"
+          }
+        }
+      ]
+    },
+    "terms": {
+      "path": "terms/index.html",
+      "title": "Terms | The Art World Report",
+      "description": "The terms for using The Art World Report: what our articles are for, what they are not, and how you may use them.",
+      "sections": [
+        {
+          "id": "terms-1",
+          "type": "awr-opening",
+          "visible": true,
+          "settings": {
+            "size": "page",
+            "eyebrow": "The Report",
+            "heading": "Terms",
+            "note": "Last updated 24 November 2026",
+            "text": "",
+            "wide": false,
+            "topics": [],
+            "email": false,
+            "button": "",
+            "button_href": "",
+            "link": "",
+            "href": ""
+          }
+        },
+        {
+          "id": "terms-2",
+          "type": "awr-text",
+          "visible": true,
+          "settings": {
+            "standfirst": "",
+            "body": "<p>By using this site you agree to these terms. They are written to be read, so please do.</p>\n\n<h2>What our articles are for</h2>\n<p>The Art World Report explains how the art trade works. Our articles are general information, not financial, legal, tax or investment advice. Art prices can go down as well as up, and a past auction result does not tell you what a work will fetch in future. Before you buy, sell or donate a work of art, take advice from someone who knows your circumstances.</p>\n\n<h2>Accuracy</h2>\n<p>We take every fact and figure from a published source and link to it. Sources can be wrong or change, and auction houses change their fees from time to time. Each article shows the date it was written. If you find a mistake, please <a href=\"../contact/\">tell us</a> and we will look into it.</p>\n<p>Where we report an auction price we say whether it is the hammer price or includes the buyer's premium, and where we have not checked a figure against the auction house's own records we say that too.</p>\n\n<h2>Using our content</h2>\n<p>The text of this site belongs to The Art World Report. You are welcome to quote short passages with a link back to the article. Please ask us before copying whole articles or republishing them elsewhere.</p>\n<p>Names of auction houses, galleries, fairs and other businesses belong to their owners. Mentioning them does not mean they endorse or are connected with this site.</p>\n\n<h2>Links to other sites</h2>\n<p>We link to the sources we use. We are not responsible for what other sites publish, and a link is not an endorsement.</p>\n\n<h2>Changes</h2>\n<p>We may update these terms. The date at the top shows when they last changed.</p>\n\n<h2>Law</h2>\n<p>These terms are governed by the law of England and Wales.</p>\n"
+          }
+        }
+      ]
+    }
+  },
+  "lists": {},
+  "addons": {},
+  "words": {
+    "item.stories-about": "On this subject",
+    "item.more-other": "More from the Report"
+  },
+  "templates": {
+    "article": {
+      "default": {
+        "name": "Default",
+        "sections": [
+          {
+            "id": "main",
+            "type": "main"
+          },
+          {
+            "id": "t-briefing",
+            "type": "awr-briefing",
+            "visible": true,
+            "settings": {
+              "style": "strip",
+              "eyebrow": "",
+              "heading": "The Art Business *Briefing*",
+              "text": "A weekly email on the business of art, from auction fees to gallery economics. Sign-up is not open yet.",
+              "button": "About the Briefing",
+              "href": "briefing/",
+              "main": false
+            }
+          }
+        ]
+      }
+    },
+    "artist": {
+      "default": {
+        "name": "Default",
+        "sections": [
+          {
+            "id": "main",
+            "type": "main"
+          },
+          {
+            "id": "t-briefing",
+            "type": "awr-briefing",
+            "visible": true,
+            "settings": {
+              "style": "strip",
+              "eyebrow": "",
+              "heading": "The Art Business *Briefing*",
+              "text": "A weekly email on the business of art, from auction fees to gallery economics. Sign-up is not open yet.",
+              "button": "About the Briefing",
+              "href": "briefing/",
+              "main": false
+            }
+          }
+        ]
+      }
+    }
+  }
+}
