@@ -151,3 +151,14 @@ em{font-style:italic}
 .strip .lead{color:var(--on-dark-muted);font-size:1.125rem;max-width:40ch;margin:1.5rem auto 2.5rem}
 @media (min-width:640px){.page-head h1{font-size:4.5rem}.strip h2{font-size:3rem}}
 @media (min-width:1024px){.page-head{padding-block:13rem 6rem}.page-head h1{font-size:6rem}.linklist a{font-size:2.25rem}.strip h2{font-size:3.75rem}}
+
+/* Features, Briefing, About, Contact */
+.page-head .h-article{font-size:2.5rem;line-height:1.1;max-width:22ch}
+.page-head .eyebrow a:hover{color:var(--ink)}
+.page-head .lead-wide{max-width:58ch}
+.page-tall{min-height:80svh}
+.briefing h1{font-size:2.5rem;margin-top:1.5rem}
+.biglink{display:inline-block;margin-top:3rem;font-size:1.75rem;text-decoration:underline;text-underline-offset:.2em;text-decoration-thickness:1px}
+.biglink:hover{text-decoration-thickness:2px}
+@media (min-width:640px){.page-head .h-article{font-size:3.5rem}.briefing h1{font-size:3.5rem}.biglink{font-size:2.5rem}}
+@media (min-width:1024px){.page-head .h-article{font-size:4.5rem}.briefing h1{font-size:4.75rem}.biglink{font-size:3.25rem}}
