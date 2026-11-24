@@ -162,6 +162,7 @@
       "sections": [
         {
           "id": "top",
+          "name": "Opening",
           "type": "awr-opening",
           "visible": true,
           "settings": {
@@ -181,6 +182,7 @@
         },
         {
           "id": "latest",
+          "name": "Latest news and reports",
           "type": "awr-features",
           "visible": true,
           "settings": {
@@ -198,6 +200,7 @@
         },
         {
           "id": "features",
+          "name": "Features",
           "type": "awr-features",
           "visible": true,
           "settings": {
@@ -215,6 +218,7 @@
         },
         {
           "id": "sections",
+          "name": "Sections",
           "type": "awr-cards",
           "visible": true,
           "settings": {
@@ -258,6 +262,7 @@
         },
         {
           "id": "briefing",
+          "name": "Briefing",
           "type": "awr-briefing",
           "visible": true,
           "settings": {
@@ -272,6 +277,7 @@
         },
         {
           "id": "research",
+          "name": "Research areas",
           "type": "awr-cards",
           "visible": true,
           "settings": {
