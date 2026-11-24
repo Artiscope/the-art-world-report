@@ -133,3 +133,21 @@ em{font-style:italic}
   .js [data-r],.js [data-lines] .ln>span,.js [data-words] .wd,.menu-panel,.menu-nav a,.menu-foot{transition:none!important;opacity:1!important;transform:none!important}
   .menu:not(.open) .menu-panel{transform:scaleY(0)!important}
 }
+
+/* Inner pages */
+.page-head{padding-block:10rem 5rem}
+.page-head h1{font-size:3.25rem;line-height:1.04;margin-top:1.5rem;max-width:16ch}
+.page-head .lead{font-size:1.125rem;max-width:50ch;margin-top:2rem}
+.band-top0{padding-top:1rem}
+.band-top0 .grid-2{margin-top:2.5rem}
+.empty{margin-top:1.5rem;font-size:1.125rem}
+.topics{display:flex;flex-wrap:wrap;gap:.75rem 2.5rem;margin-top:2rem;font-size:1.125rem;color:var(--muted)}
+.linklist{display:flex;flex-wrap:wrap;gap:1rem 3.5rem;margin-top:2rem}
+.linklist a,.card h3 a{text-decoration:underline;text-decoration-color:transparent;text-underline-offset:.2em;text-decoration-thickness:1px;transition:text-decoration-color .3s}
+.linklist a{font-family:var(--serif);font-size:1.75rem}
+.linklist a:hover,.card h3 a:hover{text-decoration-color:currentColor}
+.strip{text-align:center}
+.strip h2{font-size:2.25rem}
+.strip .lead{color:var(--on-dark-muted);font-size:1.125rem;max-width:40ch;margin:1.5rem auto 2.5rem}
+@media (min-width:640px){.page-head h1{font-size:4.5rem}.strip h2{font-size:3rem}}
+@media (min-width:1024px){.page-head{padding-block:13rem 6rem}.page-head h1{font-size:6rem}.linklist a{font-size:2.25rem}.strip h2{font-size:3.75rem}}
