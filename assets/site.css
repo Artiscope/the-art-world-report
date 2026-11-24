@@ -176,3 +176,5 @@ em{font-style:italic}
 .sources{margin-top:1.5rem;display:grid;gap:.875rem;font-size:1rem;line-height:1.5;color:var(--muted)}
 .sources a{color:var(--ink)}
 @media (min-width:1024px){.prose h2{font-size:2rem}.prose .standfirst{font-size:1.75rem}}
+.prose .points{margin-top:1.5rem;display:grid;gap:1rem}
+.prose .points strong{font-weight:600}
