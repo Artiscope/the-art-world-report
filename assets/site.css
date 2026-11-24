@@ -162,3 +162,17 @@ em{font-style:italic}
 .biglink:hover{text-decoration-thickness:2px}
 @media (min-width:640px){.page-head .h-article{font-size:3.5rem}.briefing h1{font-size:3.5rem}.biglink{font-size:2.5rem}}
 @media (min-width:1024px){.page-head .h-article{font-size:4.5rem}.briefing h1{font-size:4.75rem}.biglink{font-size:3.25rem}}
+
+/* Article */
+.page-head-article{padding-bottom:3rem}
+.byline{margin-top:2rem;font-size:.875rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.article-body{padding-bottom:7rem}
+.prose{max-width:42rem;font-size:1.125rem;line-height:1.7}
+.prose p{margin-top:1.5rem}
+.prose .standfirst{font-family:var(--serif);font-style:italic;font-size:1.5rem;line-height:1.4;margin-top:0}
+.prose h2{font-size:1.75rem;margin-top:3.5rem}
+.prose a{text-decoration:underline;text-underline-offset:.2em;text-decoration-thickness:1px}
+.prose a:hover{text-decoration-thickness:2px}
+.sources{margin-top:1.5rem;display:grid;gap:.875rem;font-size:1rem;line-height:1.5;color:var(--muted)}
+.sources a{color:var(--ink)}
+@media (min-width:1024px){.prose h2{font-size:2rem}.prose .standfirst{font-size:1.75rem}}
