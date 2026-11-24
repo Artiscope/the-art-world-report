@@ -101,3 +101,29 @@ if (form) form.addEventListener('submit', (e) => {
   e.preventDefault();
   document.getElementById('signup-note').textContent = 'Sign-up is not open yet. Please check back soon.';
 });
+
+// Solid header bar once the page has moved: white over light areas, charcoal over dark ones
+const header = document.querySelector('.site-header');
+if (header) {
+  const isDarkBelow = () => {
+    const y = header.offsetHeight / 2;
+    const stack = document.elementsFromPoint(window.innerWidth / 2, y).filter((el) => !header.contains(el));
+    for (let el = stack[0]; el; el = el.parentElement) {
+      const m = getComputedStyle(el).backgroundColor.match(/[\d.]+/g);
+      if (!m || (m.length > 3 && +m[3] === 0)) continue;
+      return (0.299 * m[0] + 0.587 * m[1] + 0.114 * m[2]) < 128;
+    }
+    return false;
+  };
+  let queued = false;
+  const setBar = () => {
+    queued = false;
+    const on = window.scrollY > 8;
+    header.classList.toggle('solid', on);
+    header.classList.toggle('on-dark', on && isDarkBelow());
+  };
+  const ask = () => { if (!queued) { queued = true; requestAnimationFrame(setBar); } };
+  window.addEventListener('scroll', ask, { passive: true });
+  window.addEventListener('resize', ask);
+  setBar();
+}

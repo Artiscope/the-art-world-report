@@ -184,3 +184,8 @@ em{font-style:italic}
 .wordmark .mark{width:2rem;height:2rem;flex:none;margin-top:-.25rem}
 .foot-brand .wordmark{gap:.9rem}
 .foot-brand .wordmark .mark{width:2.75rem;height:2.75rem;margin-top:-.4rem}
+
+/* Header gets a solid bar once the page is scrolled, so page text cannot show through it */
+.site-header{transition:background-color .25s ease,color .25s ease}
+.site-header.solid{mix-blend-mode:normal;background:#fff;color:var(--dark,#191917)}
+.site-header.solid.on-dark{background:var(--dark,#191917);color:#fff}
