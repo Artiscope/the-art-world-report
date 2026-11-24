@@ -189,3 +189,43 @@ em{font-style:italic}
 .site-header{transition:background-color .25s ease,color .25s ease}
 .site-header.solid{mix-blend-mode:normal;background:#fff;color:var(--dark,#191917)}
 .site-header.solid.on-dark{background:var(--dark,#191917);color:#fff}
+
+/* Tighter layout: less empty space, wide screens filled */
+.band{padding-block:4rem}
+.grid-2,.grid-3{margin-top:2.75rem}
+.hero{min-height:0;padding-block:8rem 4rem}
+.page-head{padding-block:8rem 3rem}
+.page-tall{min-height:0}
+.briefing{min-height:0;padding-block:5rem}
+.site-footer{padding-block:4rem 2.5rem}
+.legal{margin-top:3.5rem}
+.article-body{padding-bottom:4.5rem}
+.toc,.more{display:none}
+@media (min-width:1024px){
+  .band{padding-block:5rem}
+  .grid-2,.grid-3{margin-top:3rem}
+  .grid-2{grid-template-columns:repeat(3,minmax(0,1fr));gap:3.5rem 4rem}
+  .hero{padding-block:10rem 5rem}
+  .page-head{padding-block:10rem 3.5rem}
+  .hero .wrap,.page-head:not(.page-head-article) .wrap{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);column-gap:6rem;align-items:end}
+  .hero .wrap>*,.page-head:not(.page-head-article) .wrap>*{grid-column:1/-1}
+  .hero .wrap>h1{grid-column:1;grid-row:2/span 2;max-width:none}
+  .hero .wrap>.lead{grid-column:2;grid-row:2;margin-top:0}
+  .hero .wrap>.hero-cta{grid-column:2;grid-row:3;padding-bottom:1rem}
+  .page-head:not(.page-head-article) .wrap>h1{grid-column:1;grid-row:2;max-width:none}
+  .page-head:not(.page-head-article) .wrap>h1+.lead{grid-column:2;grid-row:2;margin-top:0;padding-bottom:1.1rem}
+  .page-head .h-article{max-width:26ch}
+  .article-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,46rem) minmax(0,1fr);column-gap:5rem;align-items:start}
+  .toc,.more{display:block;position:sticky;top:7rem;font-size:.9375rem;line-height:1.45}
+  .toc ul,.more ul{margin-top:1.25rem;display:grid;gap:.8rem}
+  .toc a{color:var(--muted)}
+  .toc a:hover{color:var(--ink)}
+  .more ul{gap:1.5rem}
+  .more a{display:block;font-family:var(--serif);font-size:1.1875rem;line-height:1.3;text-decoration:underline;text-decoration-color:transparent;text-underline-offset:.2em;text-decoration-thickness:1px;transition:text-decoration-color .3s}
+  .more a:hover{text-decoration-color:currentColor}
+  .more .sec{display:block;font-family:var(--sans);font-size:.6875rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:.3rem}
+  .prose{max-width:none}
+}
+body{display:flex;flex-direction:column;min-height:100svh}
+main{flex:1 0 auto}
+main>.briefing:first-child{padding-top:9rem}
