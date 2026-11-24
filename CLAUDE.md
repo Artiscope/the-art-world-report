@@ -17,9 +17,9 @@ This file is your standing brief. Read all of it before doing anything.
   own email app with a request to join, sent to the email in the site's
   details, and a line under the button says so. Nothing is sent or kept by
   the site.
-- Email shown on the site: info@grovegallery.com.
-- The site carries no publisher line. Do not add or remove one unless the
-  owner asks.
+- Email shown on the site: info@artiscope.co.uk.
+- The footer's small print says the site is published by Artiscope (the
+  owner's choice, 24 November 2026). Never remove or weaken it.
 
 ## How the site is put together
 The site is run from Artiscope Digital Home. The pages are built by a
