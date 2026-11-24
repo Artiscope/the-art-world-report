@@ -178,3 +178,9 @@ em{font-style:italic}
 @media (min-width:1024px){.prose h2{font-size:2rem}.prose .standfirst{font-size:1.75rem}}
 .prose .points{margin-top:1.5rem;display:grid;gap:1rem}
 .prose .points strong{font-weight:600}
+
+/* Logo */
+.wordmark{display:inline-flex;align-items:center;gap:.7rem}
+.wordmark .mark{width:2rem;height:2rem;flex:none;margin-top:-.25rem}
+.foot-brand .wordmark{gap:.9rem}
+.foot-brand .wordmark .mark{width:2.75rem;height:2.75rem;margin-top:-.4rem}
