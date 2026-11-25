@@ -8,16 +8,28 @@
         "name": "The Art World Report",
         "links": [
           [
-            "Features",
-            "features/"
+            "Industry News",
+            "industry-news/"
           ],
           [
-            "Sections",
-            "#sections"
+            "Galleries",
+            "galleries/"
           ],
           [
-            "The Briefing",
-            "briefing/"
+            "Auction Houses",
+            "auction-houses/"
+          ],
+          [
+            "Art Business",
+            "art-business/"
+          ],
+          [
+            "Market Analysis",
+            "market-analysis/"
+          ],
+          [
+            "Reports",
+            "reports/"
           ]
         ],
         "menu": [
@@ -161,41 +173,36 @@
       "home": true,
       "sections": [
         {
-          "id": "top",
-          "name": "Opening",
-          "type": "awr-opening",
+          "id": "front",
+          "name": "Front page",
+          "type": "awr-front",
           "visible": true,
           "settings": {
-            "size": "large",
-            "eyebrow": "The business of the international art industry",
-            "heading": "Understanding the *Business* of Art.",
-            "note": "",
-            "text": "The Art World Report explains how the art trade works: how galleries price and place work, what auction houses charge, and what the figures in the headlines actually mean. Every article names its sources, so you can check them.",
-            "wide": false,
-            "topics": [],
-            "email": false,
-            "button": "Read the features",
-            "button_href": "#features",
-            "link": "Latest news and reports",
-            "href": "#latest"
-          }
-        },
-        {
-          "id": "latest",
-          "name": "Latest news and reports",
-          "type": "awr-features",
-          "visible": true,
-          "settings": {
-            "eyebrow": "Latest",
-            "heading": "News and *reports.*",
-            "only": "Industry News, Reports",
-            "folder": "",
-            "area": "",
-            "every": true,
-            "count": 6,
-            "empty": "Nothing has been published in this section yet.",
-            "band": "",
-            "close": false
+            "lead": "",
+            "count": 4,
+            "latest_heading": "Latest",
+            "figures_heading": "The market in figures",
+            "figures": [
+              {
+                "value": "$59.6bn",
+                "label": "Global art sales in 2025, up 4%"
+              },
+              {
+                "value": "$34.8bn",
+                "label": "Sold by dealers and galleries, up 2%"
+              },
+              {
+                "value": "$20.7bn",
+                "label": "Sold at public auction, up 9%"
+              },
+              {
+                "value": "44%",
+                "label": "United States share of the market"
+              }
+            ],
+            "source": "Estimates from the Art Basel and UBS Global Art Market Report 2026.",
+            "source_link": "Read our report",
+            "source_href": "reports/the-art-market-in-2025/"
           }
         },
         {
@@ -204,16 +211,17 @@
           "type": "awr-features",
           "visible": true,
           "settings": {
-            "eyebrow": "Features",
-            "heading": "Nine features on how the trade *works.*",
+            "eyebrow": "",
+            "heading": "More from the *Report.*",
             "only": "",
-            "folder": "features",
+            "folder": "",
             "area": "",
             "every": true,
             "count": 6,
             "empty": "Nothing has been published in this section yet.",
             "band": "grey",
-            "close": false
+            "close": false,
+            "skip_front": true
           }
         },
         {
@@ -302,7 +310,7 @@
           "settings": {
             "size": "page",
             "eyebrow": "Features",
-            "heading": "Nine features on how the trade *works.*",
+            "heading": "Eleven features on how the trade *works.*",
             "note": "",
             "text": "",
             "wide": false,
