@@ -60,8 +60,16 @@ there is nothing to edit by hand.
   `tools/build.mjs`. A design change is made there and copied here.
 
 ## The look of this site
-- White pages with black bands: the menu bar, the menu, the newsletter and
-  the footer are charcoal #191917, and the grey bands are #F3F3F3.
+- Broadsheet look, paper and ink (the owner's choice, 25 November 2026):
+  warm paper pages #F6F3EC with darker paper bands #ECE7DC. The menu, the
+  newsletter and the footer are charcoal #191917. One accent colour, a dark
+  red #6B1F24, is used only on the small section labels.
+- The home page opens with a centred masthead and a front page: a lead
+  story with two beside it, a Latest column and "The market in figures".
+  The front page is the Front page section (`awr-front`) in
+  `data/pages.json`. Its lead is the newest article unless a name is set.
+  Its figures are typed by hand and must match a published report.
+- On the other pages the masthead is one row that stays at the top.
 - Typefaces: Libre Caslon Text for headings, Libre Franklin for reading
   text and labels.
 - Logo: the mark beside the name. Its drawing is `site.mark` in

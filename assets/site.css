@@ -493,3 +493,58 @@ figcaption{margin-top:10px;font:400 .875rem/1.45 var(--sans);color:var(--muted)}
 .has-ann main{padding-top:2.75rem}
 main > .sec--lib:first-child{padding-top:9rem}
 main > .band:first-child:not(.briefing){padding-top:10rem}
+
+/* ---------- Broadsheet theme: paper and ink ---------- */
+:root{--page:#F6F3EC;--accent:#ECE7DC;--label:#6B1F24}
+.card .eyebrow,.front .eyebrow:not(.front-head),.more .sec,.page-head-article .eyebrow{color:var(--label)}
+
+/* The masthead. Inside pages: one row on paper that stays at the top. Home page: a centred newspaper title. */
+.site-header,.site-header.solid,.site-header.solid.on-dark{position:sticky;top:0;mix-blend-mode:normal;background:var(--page);color:var(--ink)}
+.site-header .wrap{padding-block:1rem}
+.mast-line{display:none}
+.head-nav{gap:1.75rem}
+.head-right{gap:1.75rem;font-size:calc(.75rem * var(--nav-scale, 1))}
+.hero,.page-head{padding-top:3rem}
+main>.briefing:first-child{padding-top:5rem}
+body.home .site-header{position:static}
+body.home .site-header .wrap{flex-direction:column;align-items:center;gap:0;padding-block:2rem 1.5rem;text-align:center}
+body.home .site-header .wordmark{flex-direction:column;gap:.6rem;font-size:calc(2.125rem * var(--h-scale, 1));line-height:1}
+body.home .site-header .wordmark .mark{width:2.5rem;height:2.5rem;margin:0}
+body.home .mast-line{display:block;margin-top:.9rem;font-size:calc(.6875rem * var(--b-scale, 1));letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+body.home .head-right{margin-top:1.1rem}
+@media (min-width:1024px){
+  .hero,.page-head{padding-top:4.5rem}
+  body.home .site-header .wrap{padding-block:2.75rem 2rem}
+  body.home .site-header .wordmark{font-size:calc(3.75rem * var(--h-scale, 1));gap:.75rem}
+  body.home .site-header .wordmark .mark{width:3rem;height:3rem}
+  body.home .head-right{margin-top:1.5rem}
+  body.home .head-nav{gap:2.25rem}
+}
+
+/* The front page */
+.front{padding-block:1rem 3.5rem}
+.front-grid{display:grid;gap:3rem}
+.front-lead h2{font-family:var(--serif);font-weight:400;font-size:calc(2.125rem * var(--h-scale, 1));line-height:1.08;letter-spacing:-.012em;margin-top:.6rem}
+.front-dek{font-family:var(--serif);font-style:italic;font-size:calc(1.1875rem * var(--b-scale, 1));line-height:1.4;color:var(--muted);margin-top:1.1rem;max-width:34em}
+.front-lead .byline{margin-top:1.25rem}
+.front-pair{display:grid;gap:2rem;margin-top:2.5rem}
+.front-item h3{font-family:var(--serif);font-weight:400;font-size:calc(1.3125rem * var(--h-scale, 1));line-height:1.22;margin-top:.5rem}
+.front-item .muted{font-size:calc(.9375rem * var(--b-scale, 1));line-height:1.5;margin-top:.5rem}
+.front-lead a,.front-item h3 a{text-decoration:underline;text-decoration-color:transparent;text-underline-offset:.16em;text-decoration-thickness:1px;transition:text-decoration-color .3s}
+.front-lead a:hover,.front-item h3 a:hover{text-decoration-color:currentColor}
+.front-latest{display:grid;gap:1.9rem;align-content:start}
+.front-figs{background:var(--accent);padding:1.75rem 1.5rem 1.9rem;align-self:start}
+.front-head{margin-bottom:0}
+.fig{margin-top:1.4rem}
+.fig b{display:block;font-family:var(--serif);font-weight:400;font-size:calc(2.5rem * var(--h-scale, 1));line-height:1}
+.fig span{display:block;font-size:calc(.875rem * var(--b-scale, 1));color:var(--muted);margin-top:.4rem;line-height:1.45}
+.fig-src{font-size:calc(.75rem * var(--b-scale, 1));color:var(--muted);margin-top:1.6rem;line-height:1.5}
+.fig-src a{color:var(--ink);text-decoration:underline;text-underline-offset:3px}
+@media (min-width:700px){.front-pair{grid-template-columns:1fr 1fr;gap:2.5rem}}
+@media (min-width:1024px){
+  .front{padding-block:1.5rem 4.5rem}
+  .front-grid{grid-template-columns:minmax(0,2.1fr) minmax(0,1.15fr) minmax(0,.9fr);gap:3.5rem}
+  .front-lead h2{font-size:calc(3.375rem * var(--h-scale, 1))}
+  .front-dek{font-size:calc(1.375rem * var(--b-scale, 1))}
+  .front-pair{margin-top:3rem}
+}
