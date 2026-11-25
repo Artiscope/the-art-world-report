@@ -127,8 +127,27 @@
       return out;
     }
     var AO_KIND = "page";
+    // ----- for search engines: structured data, a picture to share and titles short enough to show in full -----
+    var MONTHS = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"];
+    function isoDate(s) { var m = /^(\d{1,2}) ([A-Za-z]+) (\d{4})$/.exec(String(s || "").trim()), i = m ? MONTHS.indexOf(m[2].toLowerCase()) : -1; return i < 0 ? "" : m[3] + "-" + ("0" + (i + 1)).slice(-2) + "-" + ("0" + m[1]).slice(-2); }
+    function plainText(s, n) { var t = String(s || "").replace(/<[^>]*>/g, " ").replace(/&amp;/g, "&").replace(/&[a-z#0-9]+;/gi, " ").replace(/\s+/g, " ").trim(); return n && t.length > n ? t.slice(0, n - 1).replace(/\s+\S*$/, "") + "…" : t; }
+    function shortTitle(t) { t = String(t || ""); var i = t.lastIndexOf(" | "); return t.length > 60 && i > 0 ? t.slice(0, i) : t; }
+    function ldTag(o) { return '<script type="application/ld+json">' + JSON.stringify(o).replace(/</g, "\\u003c") + '</script>\n'; }
+    function shareTag(file) { return /^[A-Za-z0-9._-]{1,120}\.(png|jpe?g)$/.test(String(file || "")) ? '<meta property="og:image" content="' + esc(SITE_URL + "assets/images/" + file) + '">\n<meta name="twitter:card" content="summary_large_image">\n' : ""; }
+    function orgLd() { return { "@type": "Organization", name: plainText(NAME()), url: SITE_URL }; }
+    function siteLd(desc) { return ldTag({ "@context": "https://schema.org", "@type": "WebSite", name: plainText(NAME()), url: SITE_URL, description: plainText(desc), publisher: orgLd() }); }
+    function articleLd(type, urlPath, title, desc, date, file, about) {
+      var o = { "@context": "https://schema.org", "@type": type, headline: plainText(title, 110), description: plainText(desc), url: SITE_URL + urlPath, mainEntityOfPage: SITE_URL + urlPath, author: orgLd(), publisher: orgLd(), isPartOf: { "@type": "WebSite", name: plainText(NAME()), url: SITE_URL } };
+      if (isoDate(date)) o.datePublished = isoDate(date);
+      if (/^[A-Za-z0-9._-]{1,120}\.(png|jpe?g)$/.test(String(file || ""))) o.image = SITE_URL + "assets/images/" + file;
+      if (about && about.length) o.about = about.map(function (n) { return { "@type": "Thing", name: plainText(n) }; });
+      return ldTag(o);
+    }
+    function listLd(urlPath, name, desc) { return ldTag({ "@context": "https://schema.org", "@type": "CollectionPage", name: plainText(name), description: plainText(desc), url: SITE_URL + urlPath, isPartOf: { "@type": "WebSite", name: plainText(NAME()), url: SITE_URL } }); }
     function page(path, title, desc, main, o) {
       o = o || {};
+      title = shortTitle(title);
+      if (path === "index.html" && !o.file) { o.head = (o.head || "") + siteLd(desc); if (!/<h1[\s>]/.test(main)) main = '<h1 class="vh">' + txt(NAME()) + '</h1>\n' + main; }
       var urlPath = /index\.html$/.test(path) ? path.slice(0, -"index.html".length) : (o.file ? "" : path);
       var ao = aoHtml(PAGES.addons, AO_KIND, SITE_URL + urlPath, String(title || "").split(" | ")[0], esc, function (x) { return /^(https?:|mailto:|#|\/)/.test(x) ? x : "@@" + x; });
       var kind = AO_KIND; AO_KIND = "page";
@@ -170,7 +189,7 @@
         '<link rel="stylesheet" href="' + r + 'assets/site.css">\n' + (THEME || "") + secCssTag() + wordsTag() +
         '</head>\n<body' + (function () { var c = [/class="ann /.test(o.top || "") ? "has-ann" : "", path === "index.html" && !o.file ? "home" : ""].filter(Boolean).join(" "); return c ? ' class="' + c + '"' : ""; })() + '>\n<a class="skip" href="#main">' + W("menu.skip", "Skip to content") + '</a>\n' + (o.top ? String(o.top).split("@@").join(r) + "\n" : "") + nav + '\n<main id="main">\n' + main + '\n</main>\n' + foot + '\n' +
         '<script src="' + r + 'assets/site.js" defer></script>\n</body>\n</html>\n';
-      return { path: o.file || path, url: urlPath, html: html };
+      return { path: o.file || path, url: urlPath, html: html, lastmod: o.lastmod || "" };
     }
 
     // ----- sections -----
@@ -587,7 +606,9 @@
         bandLinks(W("item.related-areas", "Related research areas"), subs.map(function (x) { return { label: or(x.name, "[Research area]"), href: "@@" + P.artists + "/" + x.slug + "/" }; }),
           '\n<section class="band band-grey"><div class="wrap"><p class="eyebrow">' + W("item.related-areas", "Related research areas") + '</p><p class="muted empty">[Choose the research areas this feature is filed under]</p></div></section>');
       main = tplWrap("article", a.slug, main); AO_KIND = "article";
-      return page(folderOf(a) + "/" + a.slug + "/index.html", or(a.title, "[Feature title]") + " | " + NAME(), String(a.description || "").trim() || String(a.summary || ""), main);
+      var aDesc = String(a.description || "").trim() || String(a.summary || "");
+      return page(folderOf(a) + "/" + a.slug + "/index.html", or(a.title, "[Feature title]") + " | " + NAME(), aDesc, main,
+        { head: articleLd(folderOf(a) === "industry-news" ? "NewsArticle" : "Article", folderOf(a) + "/" + a.slug + "/", a.title, aDesc, a.date, a.image, subs.map(function (x) { return x.name; })) + shareTag(a.image), lastmod: isoDate(a.date) });
     }
     // A research area: its name and topics, every feature filed under it, then the sections it relates to.
     function artistPage(x) {
@@ -601,7 +622,8 @@
         M(bandLinks(W("item.related", "Related sections"), rel.map(function (r) { return { label: r.label, href: hrefOf(r.href) }; }),
           '\n<section class="band band-grey"><div class="wrap"><p class="eyebrow">' + W("item.related", "Related sections") + '</p><p class="muted empty">[Add links to the sections this area relates to]</p></div></section>'), "related");
       main = tplWrap("artist", x.slug, main); AO_KIND = "artist";
-      return page(P.artists + "/" + x.slug + "/index.html", or(x.name, "[Research area]") + " | " + NAME(), String(x.description || "").trim() || String(x.line || ""), main);
+      var xDesc = String(x.description || "").trim() || String(x.line || "");
+      return page(P.artists + "/" + x.slug + "/index.html", or(x.name, "[Research area]") + " | " + NAME(), xDesc, main, { head: listLd(P.artists + "/" + x.slug + "/", x.name, xDesc) });
     }
     // Every feature as cards, or every research area.
     function listPage(k) {
@@ -611,7 +633,7 @@
       var grid = !items.length ? '<p class="muted empty">' + (k === "articles" ? "[No features yet]" : "[No research areas yet]") + '</p>'
         : k === "articles" ? cardGrid(items)
         : '<div class="grid-3">\n' + items.map(function (x, n) { return '      <article class="card card-plain" data-r' + delay(n, 90, 3) + '><h3><a href="@@' + P.artists + '/' + esc(x.slug) + '/">' + txt(or(x.name, "[Research area]")) + '</a></h3>' + (String(x.line || "").trim() ? '<p class="muted">' + txt(x.line) + '</p>' : "") + '</article>'; }).join("\n") + '\n    </div>';
-      return page(P[k] + "/index.html", w.name + " | " + NAME(), String(w.intro || ""), head + '\n<section class="band band-top0">\n  <div class="wrap">\n    ' + grid + '\n  </div>\n</section>');
+      return page(P[k] + "/index.html", w.name + " | " + NAME(), String(w.intro || ""), head + '\n<section class="band band-top0">\n  <div class="wrap">\n    ' + grid + '\n  </div>\n</section>', { head: listLd(P[k] + "/", w.name, w.intro) });
     }
     function notFound() {
       var base = SITE_URL.replace(/^https:\/\/[^\/]+/, "") || "/";
