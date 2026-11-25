@@ -143,7 +143,7 @@
       var links = pairs(get(st, "links", [])).map(function (x) { return '<a href="' + go(x.l[1]) + '" data-adh-b="links.' + x.k + '">' + txt(x.l[0]) + '</a>'; }).join("\n        ");
       var menuLinks = pairs(get(st, "menu", [])).map(function (x, i) { return '<a href="' + go(x.l[1]) + '" style="--i:' + i + '" data-adh-b="menu.' + x.k + '">' + txt(x.l[0]) + '</a>'; }).join("\n      ");
       var line = get(st, "line", "");
-      var nav = !hon || o.own ? "" : '<header class="site-header" id="nav">\n  <div class="wrap">\n    <a class="wordmark" href="' + home + '">' + brand(1) + '</a>\n    <div class="head-right">\n' +
+      var nav = !hon || o.own ? "" : '<header class="site-header" id="nav">\n  <div class="wrap">\n    <a class="wordmark" href="' + home + '">' + brand(1) + '</a>\n' + (line ? '    <p class="mast-line">' + txt(line) + '</p>\n' : "") + '    <div class="head-right">\n' +
         (links ? '      <nav class="head-nav" aria-label="' + W("sr.nav", "Primary") + '">\n        ' + links + '\n      </nav>\n' : "") +
         (menuLinks ? '      <button class="menu-btn" id="menu-open" type="button" aria-expanded="false" aria-controls="menu">' + W("btn.menu", "Menu") + '</button>\n' : "") + '    </div>\n  </div>\n</header>\n' +
         (menuLinks ? '<div class="menu" id="menu" role="dialog" aria-modal="true" aria-label="' + W("btn.menu", "Menu") + '" aria-hidden="true">\n  <div class="menu-panel"></div>\n  <div class="menu-inner">\n' +
@@ -168,7 +168,7 @@
         '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital@0;1&family=Libre+Franklin:wght@400;500;600&display=swap">\n' +
         (o.head || "") + (iconOk() ? '<link rel="icon" href="' + r + opts.favicon + '">\n' : "") +
         '<link rel="stylesheet" href="' + r + 'assets/site.css">\n' + (THEME || "") + secCssTag() + wordsTag() +
-        '</head>\n<body' + (/class="ann /.test(o.top || "") ? ' class="has-ann"' : "") + '>\n<a class="skip" href="#main">' + W("menu.skip", "Skip to content") + '</a>\n' + (o.top ? String(o.top).split("@@").join(r) + "\n" : "") + nav + '\n<main id="main">\n' + main + '\n</main>\n' + foot + '\n' +
+        '</head>\n<body' + (function () { var c = [/class="ann /.test(o.top || "") ? "has-ann" : "", path === "index.html" && !o.file ? "home" : ""].filter(Boolean).join(" "); return c ? ' class="' + c + '"' : ""; })() + '>\n<a class="skip" href="#main">' + W("menu.skip", "Skip to content") + '</a>\n' + (o.top ? String(o.top).split("@@").join(r) + "\n" : "") + nav + '\n<main id="main">\n' + main + '\n</main>\n' + foot + '\n' +
         '<script src="' + r + 'assets/site.js" defer></script>\n</body>\n</html>\n';
       return { path: o.file || path, url: urlPath, html: html };
     }
@@ -234,12 +234,47 @@
     // Cards for the features: every feature, or one section's, or one research area's. Newest first.
     S["awr-features"] = function (st, ctx) {
       var only = sectionNames(get(st, "only", "")), folder = String(get(st, "folder", "") || "").trim(), area = String(get(st, "area", "") || "").trim(), n = Math.max(1, Math.min(48, Number(get(st, "count", 6)) || 6));
-      var list = ARTICLES.filter(function (a) { return (!only.length || inSections(a, only)) && (!folder || folderOf(a) === folder) && (!area || subjectsOf(a).some(function (x) { return x.slug === area; })); });
+      var onFront = get(st, "skip_front", false) === true ? frontOf(ctx && ctx.page) : [];
+      var list = ARTICLES.filter(function (a) { return onFront.indexOf(a.slug) < 0 && (!only.length || inSections(a, only)) && (!folder || folderOf(a) === folder) && (!area || subjectsOf(a).some(function (x) { return x.slug === area; })); });
       var shown = get(st, "every", true) === false ? list.slice(0, n) : list, e = get(st, "eyebrow", ""), h = get(st, "heading", "");
       var empty = get(st, "empty", "") || "[Features appear here once you add them]";
       return '<section class="band' + band(st) + (get(st, "close", false) === true ? " band-top0" : "") + '" id="' + esc((ctx && ctx.id) || "features") + '">\n  <div class="wrap">\n' +
         (e ? '    <p class="eyebrow" data-r="fade">' + txt(e) + '</p>\n' : "") + (h ? '    <h2 class="h-section" data-lines>' + ital(h) + '</h2>\n' : "") +
         (shown.length ? '    ' + cardGrid(shown) + '\n' : '    <p class="muted empty" data-r>' + txt(empty) + '</p>\n') + '  </div>\n</section>';
+    };
+    // The front page: a lead story with two beside it, a column of the latest, and a column of figures.
+    function frontPick(st) {
+      var lead = articleOf(String(get(st, "lead", "") || "").trim()); if (lead && lead.hidden === true) lead = null;
+      var rest = ARTICLES.filter(function (a) { return !lead || a.slug !== lead.slug; });
+      if (!lead) lead = rest.shift() || null;
+      var n = Math.max(0, Math.min(8, Number(get(st, "count", 4)) || 0));
+      return { lead: lead, second: rest.slice(0, 2), latest: rest.slice(2, 2 + n) };
+    }
+    function frontOf(key) {
+      var pg = (PAGES.pages || {})[key], sec = pg && (pg.sections || []).find(function (x) { return x && x.type === "awr-front" && x.visible !== false; });
+      if (!sec) return [];
+      var f = frontPick(sec.settings || {});
+      return [f.lead].concat(f.second, f.latest).filter(Boolean).map(function (a) { return a.slug; });
+    }
+    function frontItem(a, k, cls) {
+      var kick = String(a.kicker || "").trim();
+      return '<article class="' + cls + '" data-r' + delay(k, 90, 4) + '>' + (kick ? '<p class="eyebrow">' + txt(kick) + '</p>' : "") + '<h3><a href="@@' + folderOf(a) + '/' + esc(a.slug) + '/">' + txt(String(a.title || "").trim() || "[Feature title]") + '</a></h3>' + (String(a.card || "").trim() ? '<p class="muted">' + txt(a.card) + '</p>' : "") + '</article>';
+    }
+    S["awr-front"] = function (st, ctx) {
+      var f = frontPick(st), a = f.lead, id = esc((ctx && ctx.id) || "front");
+      if (!a) return '<section class="front" id="' + id + '">\n  <div class="wrap"><p class="muted empty" data-r>[The front page fills once you add features]</p></div>\n</section>';
+      var kick = String(a.kicker || "").trim(), lh = get(st, "latest_heading", ""), fh = get(st, "figures_heading", "");
+      var figs = liveRows(get(st, "figures", [])).filter(function (r) { return r.x.value; }).map(function (r) { return '        <div class="fig" data-adh-b="figures.' + r.i + '"><b>' + txt(r.x.value) + '</b>' + (r.x.label ? '<span>' + txt(r.x.label) + '</span>' : "") + '</div>'; }).join("\n");
+      var src = get(st, "source", ""), sl = get(st, "source_link", ""), sh = get(st, "source_href", "");
+      return '<section class="front" id="' + id + '">\n  <div class="wrap front-grid">\n' +
+        '    <div class="front-main">\n      <article class="front-lead">' + (kick ? '<p class="eyebrow" data-r="fade">' + txt(kick) + '</p>' : "") +
+        '<h2 data-lines><a href="@@' + folderOf(a) + '/' + esc(a.slug) + '/">' + txt(String(a.title || "").trim()) + '</a></h2>' +
+        (String(a.card || "").trim() ? '<p class="front-dek" data-r style="--d:300ms">' + txt(a.card) + '</p>' : "") + (a.date ? '<p class="byline" data-r style="--d:400ms">' + txt(a.date) + '</p>' : "") + '</article>\n' +
+        (f.second.length ? '      <div class="front-pair">\n' + f.second.map(function (x, k) { return '        ' + frontItem(x, k, "front-item"); }).join("\n") + '\n      </div>\n' : "") + '    </div>\n' +
+        (f.latest.length ? '    <div class="front-latest">\n' + (lh ? '      <p class="eyebrow front-head" data-r="fade">' + txt(lh) + '</p>\n' : "") + f.latest.map(function (x, k) { return '      ' + frontItem(x, k, "front-item"); }).join("\n") + '\n    </div>\n' : "") +
+        (figs ? '    <aside class="front-figs" data-r>\n' + (fh ? '      <p class="eyebrow front-head">' + txt(fh) + '</p>\n' : "") + figs + '\n' +
+          (src || sl ? '      <p class="fig-src">' + txt(src) + (sl && addrOk(sh) ? ' <a href="' + esc(hrefOf(sh)) + '">' + txt(sl) + '</a>' : "") + '</p>\n' : "") + '    </aside>\n' : "") +
+        '  </div>\n</section>';
     };
     // Cards written by hand, each with a heading, a line and an optional link; or one for every research area.
     S["awr-cards"] = function (st, ctx) {
