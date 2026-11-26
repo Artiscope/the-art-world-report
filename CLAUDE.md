@@ -61,8 +61,9 @@ there is nothing to edit by hand.
 
 ## The look of this site
 - Broadsheet look, paper and ink (the owner's choice, 25 November 2026):
-  warm paper pages #F6F3EC with darker paper bands #ECE7DC. The menu, the
-  newsletter and the footer are charcoal #191917. One accent colour, a dark
+  off-white pages #FAF7F2 with muted salmon bands #F2DFD3 (colours updated
+  26 November 2026). Text, the menu, the newsletter and the footer are ink
+  navy #1C2B3A. One accent colour, a dark
   red #6B1F24, is used only on the small section labels.
 - The home page opens with a centred masthead and a front page: a lead
   story with two beside it, a Latest column and "The market in figures".

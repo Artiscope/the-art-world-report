@@ -6,9 +6,9 @@
    the width of the window, as on the site it was made from. */
 :root{
   --page:#FFFFFF;        /* the page */
-  --band:#191917;        /* the footer, the menu, dark bands */
+  --band:#1C2B3A;        /* the footer, the menu, dark bands */
   --accent:#F3F3F3;      /* grey bands and cards */
-  --ink:#191917;         /* text and buttons */
+  --ink:#1C2B3A;         /* text and buttons */
   --display:"Libre Caslon Text",Georgia,"Times New Roman",serif;
   --text:"Libre Franklin",Helvetica,Arial,sans-serif;
   --sans:"Libre Franklin",Helvetica,Arial,sans-serif;
@@ -495,7 +495,7 @@ main > .sec--lib:first-child{padding-top:9rem}
 main > .band:first-child:not(.briefing){padding-top:10rem}
 
 /* ---------- Broadsheet theme: paper and ink ---------- */
-:root{--page:#F6F3EC;--accent:#ECE7DC;--label:#6B1F24}
+:root{--page:#FAF7F2;--accent:#F2DFD3;--label:#6B1F24}
 .card .eyebrow,.front .eyebrow:not(.front-head),.more .sec,.page-head-article .eyebrow{color:var(--label)}
 
 /* The masthead. Inside pages: one row on paper that stays at the top. Home page: a centred newspaper title. */
