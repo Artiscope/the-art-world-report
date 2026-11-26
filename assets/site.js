@@ -158,20 +158,37 @@
     box.addEventListener('click',function(e){var b=e.target.closest('[data-lb]');if(!b)return;if(b.dataset.lb==='close')close();else show(i+(b.dataset.lb==='next'?1:-1))});
     addEventListener('keydown',key);document.body.appendChild(box);html.classList.add('lock');show(i);box.querySelector('[data-lb="close"]').focus();
   }
-  /* The contact form opens the visitor's own email app with the message ready to send. The site sends and keeps nothing. */
+
+  /* Contact form: each message is saved to the Artiscope enquiries table on Supabase. The key below is the
+     public (publishable) one. It can only add a message; it cannot read, change or delete any. */
+  var ENQ={url:'https://qjfutwulufvmhetztubt.supabase.co/rest/v1/enquiries',key:'sb_publishable_6X_IS-AOOVGNpzp73QPU8w_l_qSEnhX',site:'the-art-world-report'};
+  var ENQ_EMAIL=/^[^@\s]+@[^@\s]+\.[^@\s]+$/;
+  function sendEnquiry(form,say,to){
+    if(form.getAttribute('data-busy'))return;
+    var v=function(n){var el=form.elements[n];return el?String(el.value||'').trim():''};
+    var bad=function(n,t){var el=form.elements[n];if(el){el.setAttribute('aria-invalid','true');el.focus();el.addEventListener('input',function(){el.removeAttribute('aria-invalid')},{once:true})}say(t,true)};
+    if(form.elements.name&&!v('name'))return bad('name',SW('form.need-name','Please add your name, so we know who we are replying to.'));
+    if(!ENQ_EMAIL.test(v('email'))||(form.elements.email&&!form.elements.email.checkValidity()))return bad('email',SW('form.need-email','We need a working email address, so we can reply.'));
+    if(!v('message'))return bad('message',SW('form.need-message','Please write your message first.'));
+    if(v('message').length>5000)return bad('message',SW('form.too-long','That is longer than the form allows. Please keep it under 5,000 characters, or write to {email}.',{email:to}));
+    if(window.ADH_EDIT)return say(SW('form.preview','The form does not send while the page is being edited.'));
+    var thanks=function(){form.reset();say(SW('form.thanks-contact','Thank you. Your message has reached us and we will reply by email.'))};
+    // The hidden "website" box is only ever filled in by spam robots. Thank them and send nothing.
+    if(v('website'))return thanks();
+    var btn=form.querySelector('[type="submit"]'),busy=function(on){if(on){form.setAttribute('data-busy','1');form.setAttribute('aria-busy','true')}else{form.removeAttribute('data-busy');form.removeAttribute('aria-busy')}if(btn)btn.disabled=on};
+    busy(true);say(SW('form.sending','Sending your message.'));
+    fetch(ENQ.url,{method:'POST',headers:{'apikey':ENQ.key,'Content-Type':'application/json','Prefer':'return=minimal'},
+      body:JSON.stringify({site:ENQ.site,name:v('name').slice(0,120),email:v('email').slice(0,254),subject:v('topic').slice(0,200)||null,message:v('message')})})
+      .then(function(r){if(!r.ok)throw new Error('HTTP '+r.status);busy(false);thanks()})
+      .catch(function(){busy(false);say(SW('form.failed','Sorry, your message did not go through. Please try again in a moment, or write to {email}.',{email:to}),true)});
+  }
   function setupMailForms(){
     document.querySelectorAll('form[data-mailform]').forEach(function(form){
+      if(form.getAttribute('data-wired'))return;form.setAttribute('data-wired','1');
       form.addEventListener('submit',function(e){
         e.preventDefault();
-        var v=function(n){var el=form.elements[n];return el?el.value.trim():''},note=form.querySelector('.mf-note'),to=form.getAttribute('data-email');
-        var say=function(t,bad){if(note){note.textContent=t;note.classList.toggle('err',!!bad)}};
-        var email=form.elements.email;
-        if(email&&(!email.value.trim()||!email.checkValidity())){email.focus();say(SW('form.need-email','We need a working email address, so we can reply.'),true);return}
-        if(form.elements.message&&!v('message')){form.elements.message.focus();say(SW('form.need-message','Please write your message first.'),true);return}
-        var subject=(v('topic')||'A message')+' for '+siteName();
-        var url='mailto:'+to+'?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(v('message')+'\n\nName: '+v('name')+'\nEmail: '+v('email'));
-        form.setAttribute('data-mailto',url);location.href=url;
-        say(SW('form.sent','Your email app should now be open with the message ready. Send it and it reaches us. If nothing opened, write to {email}.',{email:to}));
+        var note=form.querySelector('.mf-note'),to=form.getAttribute('data-email');
+        sendEnquiry(form,function(t,bad){if(note){note.textContent=t;note.classList.toggle('err',!!bad)}},to);
       });
     });
   }

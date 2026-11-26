@@ -959,6 +959,23 @@
             "link": "",
             "href": ""
           }
+        },
+        {
+          "id": "contact-form",
+          "type": "contact-form",
+          "visible": true,
+          "settings": {
+            "eyebrow": "",
+            "heading": "Or send us a message here.",
+            "text": "It reaches the same inbox as an email.",
+            "topics": [
+              "A question",
+              "A correction",
+              "A story idea",
+              "Something else"
+            ],
+            "button": "Send message"
+          }
         }
       ]
     },
@@ -992,7 +1009,7 @@
           "visible": true,
           "settings": {
             "standfirst": "",
-            "body": "<p>This page explains what happens to information about you when you visit The Art World Report. The short version: we do not run analytics, we do not use advertising cookies, and we do not ask you for personal details.</p>\n\n<h2>Who we are</h2>\n<p>The Art World Report is published at theartworldreport.com. You can reach us at <a href=\"mailto:info@artiscope.co.uk\">info@artiscope.co.uk</a>.</p>\n\n<h2>What the site itself collects</h2>\n<p>Nothing. The site is a set of plain web pages. It has no accounts, no comments and no tracking code, and it does not set cookies.</p>\n<p>The newsletter box on the Briefing page is not connected to any mailing service. Pressing Subscribe opens your own email app with a message asking to join, addressed to info@artiscope.co.uk. Nothing is sent unless you send that email yourself, and the site keeps nothing. We will update this page if that changes.</p>\n\n<h2>Services the site relies on</h2>\n<p>Two outside services are involved when a page loads. Each one receives the technical details that any website receives, such as your IP address and browser type.</p>\n<ul>\n<li><strong>GitHub Pages</strong> hosts the site. GitHub may keep server logs for security and to run the service. See the <a href=\"https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement\">GitHub privacy statement</a>.</li>\n<li><strong>Google Fonts</strong> supplies the typefaces. See <a href=\"https://fonts.google.com/faq\">the Google Fonts FAQ</a>, which covers privacy.</li>\n</ul>\n\n<h2>If you email us</h2>\n<p>We will see your email address and anything you include in the message. We use it only to reply, and we do not add you to any list.</p>\n\n<h2>Links to other sites</h2>\n<p>Our articles link to their sources. Those sites have their own privacy policies, and what happens there is up to them.</p>\n\n<h2>Your rights</h2>\n<p>If you are in the UK or the EU, data protection law gives you rights over personal information held about you, including the right to see it and to have it deleted. As we do not collect anything through the site, in practice this applies only to emails you have sent us. Write to the address above and we will deal with it. You can also complain to the <a href=\"https://ico.org.uk/\">Information Commissioner's Office</a>.</p>\n"
+            "body": "<p>This page explains what happens to information about you when you visit The Art World Report. The short version: we do not run analytics or use advertising cookies, and the only personal details we hold are the ones you send us through the contact form or by email.</p>\n\n<h2>Who we are</h2>\n<p>The Art World Report is published at theartworldreport.com. You can reach us at <a href=\"mailto:info@artiscope.co.uk\">info@artiscope.co.uk</a>.</p>\n\n<h2>What the site itself collects</h2>\n<p>Very little. The site is a set of plain web pages. It has no accounts, no comments and no tracking code, and it does not set cookies. The one exception is the contact form, described below.</p>\n<p>The newsletter box on the Briefing page is not connected to any mailing service. Pressing Subscribe opens your own email app with a message asking to join, addressed to info@artiscope.co.uk. Nothing is sent unless you send that email yourself, and the site keeps nothing. We will update this page if that changes.</p>\n\n<h2>If you use the contact form</h2>\n<p>The form on the <a href=\"../contact/\">contact page</a> sends us your name, your email address, the topic you pick and your message. We keep them so we can read your message and reply, and we use them for nothing else. We do not add you to any list.</p>\n<p>The messages are stored with <strong>Supabase</strong>, a database service, on servers in Ireland (see the <a href=\"https://supabase.com/privacy\">Supabase privacy policy</a>). Only the Artiscope team can read them. To see what we hold or have it deleted, write to <a href=\"mailto:info@artiscope.co.uk\">info@artiscope.co.uk</a>.</p>\n\n<h2>Services the site relies on</h2>\n<p>Two outside services are involved when a page loads. Each one receives the technical details that any website receives, such as your IP address and browser type.</p>\n<ul>\n<li><strong>GitHub Pages</strong> hosts the site. GitHub may keep server logs for security and to run the service. See the <a href=\"https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement\">GitHub privacy statement</a>.</li>\n<li><strong>Google Fonts</strong> supplies the typefaces. See <a href=\"https://fonts.google.com/faq\">the Google Fonts FAQ</a>, which covers privacy.</li>\n</ul>\n\n<h2>If you email us</h2>\n<p>We will see your email address and anything you include in the message. We use it only to reply, and we do not add you to any list.</p>\n\n<h2>Links to other sites</h2>\n<p>Our articles link to their sources. Those sites have their own privacy policies, and what happens there is up to them.</p>\n\n<h2>Your rights</h2>\n<p>If you are in the UK or the EU, data protection law gives you rights over personal information held about you, including the right to see it and to have it deleted. In practice this covers messages you have sent through the contact form and emails you have sent us. Write to the address above and we will deal with it. You can also complain to the <a href=\"https://ico.org.uk/\">Information Commissioner's Office</a>.</p>\n"
           }
         }
       ]
