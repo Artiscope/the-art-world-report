@@ -173,12 +173,32 @@
       "home": true,
       "sections": [
         {
+          "id": "opening",
+          "name": "Opening",
+          "type": "awr-opening",
+          "visible": true,
+          "settings": {
+            "size": "page",
+            "eyebrow": "",
+            "heading": "Understanding the *Business* of Art.",
+            "note": "",
+            "text": "The Art World Report examines the commercial systems supporting contemporary art, from galleries and auction houses to exhibitions, partnerships and the economics of artistic careers. We provide accessible reporting and analysis for readers interested in how the industry operates.",
+            "wide": true,
+            "topics": [],
+            "email": false,
+            "button": "",
+            "button_href": "",
+            "link": "",
+            "href": ""
+          }
+        },
+        {
           "id": "front",
           "name": "Front page",
           "type": "awr-front",
           "visible": true,
           "settings": {
-            "lead": "",
+            "lead": "the-art-market-in-2025",
             "count": 4,
             "latest_heading": "Latest",
             "figures_heading": "The market in figures",
@@ -275,9 +295,9 @@
           "visible": true,
           "settings": {
             "style": "full",
-            "eyebrow": "Newsletter, coming soon",
+            "eyebrow": "Newsletter",
             "heading": "The Art Business *Briefing*",
-            "text": "A weekly email on the business of art, from auction fees to gallery economics. Sign-up is not open yet.",
+            "text": "A research-led weekly email on the business of art, from auction fees to gallery economics. Ask to join now and you will get it from the first issue.",
             "button": "Subscribe",
             "href": "",
             "main": false
@@ -310,7 +330,7 @@
           "settings": {
             "size": "page",
             "eyebrow": "Features",
-            "heading": "Sixteen features on how the trade *works.*",
+            "heading": "Nineteen features on how the trade *works.*",
             "note": "",
             "text": "",
             "wide": false,
@@ -347,7 +367,7 @@
             "style": "strip",
             "eyebrow": "",
             "heading": "The Art Business *Briefing*",
-            "text": "A weekly email on the business of art, from auction fees to gallery economics. Sign-up is not open yet.",
+            "text": "A research-led weekly email on the business of art, from auction fees to gallery economics. Ask to join now and you will get it from the first issue.",
             "button": "About the Briefing",
             "href": "briefing/",
             "main": false
@@ -404,7 +424,7 @@
             "style": "strip",
             "eyebrow": "",
             "heading": "The Art Business *Briefing*",
-            "text": "A weekly email on the business of art, from auction fees to gallery economics. Sign-up is not open yet.",
+            "text": "A research-led weekly email on the business of art, from auction fees to gallery economics. Ask to join now and you will get it from the first issue.",
             "button": "About the Briefing",
             "href": "briefing/",
             "main": false
@@ -480,7 +500,7 @@
             "style": "strip",
             "eyebrow": "",
             "heading": "The Art Business *Briefing*",
-            "text": "A weekly email on the business of art, from auction fees to gallery economics. Sign-up is not open yet.",
+            "text": "A research-led weekly email on the business of art, from auction fees to gallery economics. Ask to join now and you will get it from the first issue.",
             "button": "About the Briefing",
             "href": "briefing/",
             "main": false
@@ -560,7 +580,7 @@
             "style": "strip",
             "eyebrow": "",
             "heading": "The Art Business *Briefing*",
-            "text": "A weekly email on the business of art, from auction fees to gallery economics. Sign-up is not open yet.",
+            "text": "A research-led weekly email on the business of art, from auction fees to gallery economics. Ask to join now and you will get it from the first issue.",
             "button": "About the Briefing",
             "href": "briefing/",
             "main": false
@@ -636,7 +656,7 @@
             "style": "strip",
             "eyebrow": "",
             "heading": "The Art Business *Briefing*",
-            "text": "A weekly email on the business of art, from auction fees to gallery economics. Sign-up is not open yet.",
+            "text": "A research-led weekly email on the business of art, from auction fees to gallery economics. Ask to join now and you will get it from the first issue.",
             "button": "About the Briefing",
             "href": "briefing/",
             "main": false
@@ -712,7 +732,7 @@
             "style": "strip",
             "eyebrow": "",
             "heading": "The Art Business *Briefing*",
-            "text": "A weekly email on the business of art, from auction fees to gallery economics. Sign-up is not open yet.",
+            "text": "A research-led weekly email on the business of art, from auction fees to gallery economics. Ask to join now and you will get it from the first issue.",
             "button": "About the Briefing",
             "href": "briefing/",
             "main": false
@@ -769,7 +789,7 @@
             "style": "strip",
             "eyebrow": "",
             "heading": "The Art Business *Briefing*",
-            "text": "A weekly email on the business of art, from auction fees to gallery economics. Sign-up is not open yet.",
+            "text": "A research-led weekly email on the business of art, from auction fees to gallery economics. Ask to join now and you will get it from the first issue.",
             "button": "About the Briefing",
             "href": "briefing/",
             "main": false
@@ -780,7 +800,7 @@
     "briefing": {
       "path": "briefing/index.html",
       "title": "The Art Business Briefing | The Art World Report",
-      "description": "The Art Business Briefing will be a weekly email from The Art World Report on the business of art. Sign-up is not open yet.",
+      "description": "The Art Business Briefing is a research-led weekly email from The Art World Report on the business of art. Ask to join and you will get it from the first issue.",
       "sections": [
         {
           "id": "briefing-1",
@@ -788,9 +808,9 @@
           "visible": true,
           "settings": {
             "style": "full",
-            "eyebrow": "Newsletter, coming soon",
+            "eyebrow": "Newsletter",
             "heading": "The Art Business *Briefing*",
-            "text": "A weekly email on the business of art, from auction fees to gallery economics. Sign-up is not open yet.",
+            "text": "A research-led weekly email on the business of art, from auction fees to gallery economics. Ask to join now and you will get it from the first issue.",
             "button": "Subscribe",
             "href": "",
             "main": true
@@ -908,7 +928,7 @@
             "style": "strip",
             "eyebrow": "",
             "heading": "The Art Business *Briefing*",
-            "text": "A weekly email on the business of art, from auction fees to gallery economics. Sign-up is not open yet.",
+            "text": "A research-led weekly email on the business of art, from auction fees to gallery economics. Ask to join now and you will get it from the first issue.",
             "button": "About the Briefing",
             "href": "briefing/",
             "main": false
@@ -1036,7 +1056,7 @@
               "style": "strip",
               "eyebrow": "",
               "heading": "The Art Business *Briefing*",
-              "text": "A weekly email on the business of art, from auction fees to gallery economics. Sign-up is not open yet.",
+              "text": "A research-led weekly email on the business of art, from auction fees to gallery economics. Ask to join now and you will get it from the first issue.",
               "button": "About the Briefing",
               "href": "briefing/",
               "main": false
@@ -1061,7 +1081,7 @@
               "style": "strip",
               "eyebrow": "",
               "heading": "The Art Business *Briefing*",
-              "text": "A weekly email on the business of art, from auction fees to gallery economics. Sign-up is not open yet.",
+              "text": "A research-led weekly email on the business of art, from auction fees to gallery economics. Ask to join now and you will get it from the first issue.",
               "button": "About the Briefing",
               "href": "briefing/",
               "main": false
