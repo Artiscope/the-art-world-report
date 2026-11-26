@@ -288,7 +288,7 @@
       return '<section class="front" id="' + id + '">\n  <div class="wrap front-grid">\n' +
         '    <div class="front-main">\n      <article class="front-lead">' + (kick ? '<p class="eyebrow" data-r="fade">' + txt(kick) + '</p>' : "") +
         '<h2 data-lines><a href="@@' + folderOf(a) + '/' + esc(a.slug) + '/">' + txt(String(a.title || "").trim()) + '</a></h2>' +
-        (String(a.card || "").trim() ? '<p class="front-dek" data-r style="--d:300ms">' + txt(a.card) + '</p>' : "") + (a.date ? '<p class="byline" data-r style="--d:400ms">' + txt(a.date) + '</p>' : "") + '</article>\n' +
+        (String(a.card || "").trim() ? '<p class="front-dek" data-r style="--d:300ms">' + txt(a.card) + '</p>' : "") + '</article>\n' +
         (f.second.length ? '      <div class="front-pair">\n' + f.second.map(function (x, k) { return '        ' + frontItem(x, k, "front-item"); }).join("\n") + '\n      </div>\n' : "") + '    </div>\n' +
         (f.latest.length ? '    <div class="front-latest">\n' + (lh ? '      <p class="eyebrow front-head" data-r="fade">' + txt(lh) + '</p>\n' : "") + f.latest.map(function (x, k) { return '      ' + frontItem(x, k, "front-item"); }).join("\n") + '\n    </div>\n' : "") +
         (figs ? '    <aside class="front-figs" data-r>\n' + (fh ? '      <p class="eyebrow front-head">' + txt(fh) + '</p>\n' : "") + figs + '\n' +
@@ -600,7 +600,7 @@
       var body = anchored(String(a.body || "").replace(/<[^>]*>/g, "").trim() ? a.body : "<p>[Write the feature here]</p>"), srcs = sourceList(a.sources);
       var main = '<article>\n' + M('<section class="page-head page-head-article">\n  <div class="wrap">\n' + (label ? '    <p class="eyebrow" data-r="fade">' + label + '</p>\n' : "") +
         '    <h1 class="h-article" data-lines>' + txt(or(a.title, "[Feature title]")) + '</h1>\n' +
-        '    <p class="byline" data-r style="--d:400ms">' + (date ? W("item.byline-date", "{site} · {date}", { site: txt(NAME()), date: txt(date) }) : W("item.byline", "{site}", { site: txt(NAME()) })) + '</p>\n  </div>\n</section>', "words") + '\n' +
+        '    <p class="byline" data-r style="--d:400ms">' + W("item.byline", "{site}", { site: txt(NAME()) }) + '</p>\n  </div>\n</section>', "words") + '\n' +
         M('<section class="article-body">\n  <div class="wrap">\n    <div class="article-grid">\n' + contents(body, /<ul class="sources">/.test(srcs)) +
           '    <div class="prose">\n<p class="standfirst">' + txt(or(a.summary, "[One or two sentences that open the feature]")) + '</p>\n\n' + body + M(srcs, "sources") + '\n    </div>\n' + moreOf(a) + '    </div>\n  </div>\n</section>', "body") + '\n</article>' +
         bandLinks(W("item.related-areas", "Related research areas"), subs.map(function (x) { return { label: or(x.name, "[Research area]"), href: "@@" + P.artists + "/" + x.slug + "/" }; }),
