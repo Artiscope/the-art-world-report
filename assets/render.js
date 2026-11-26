@@ -138,7 +138,8 @@
     function siteLd(desc) { return ldTag({ "@context": "https://schema.org", "@type": "WebSite", name: plainText(NAME()), url: SITE_URL, description: plainText(desc), publisher: orgLd() }); }
     function articleLd(type, urlPath, title, desc, date, file, about) {
       var o = { "@context": "https://schema.org", "@type": type, headline: plainText(title, 110), description: plainText(desc), url: SITE_URL + urlPath, mainEntityOfPage: SITE_URL + urlPath, author: orgLd(), publisher: orgLd(), isPartOf: { "@type": "WebSite", name: plainText(NAME()), url: SITE_URL } };
-      if (isoDate(date)) o.datePublished = isoDate(date);
+      // Google wants a full date and time with a time zone in structured data.
+      if (isoDate(date)) o.datePublished = isoDate(date) + "T00:00:00+00:00";
       if (/^[A-Za-z0-9._-]{1,120}\.(png|jpe?g)$/.test(String(file || ""))) o.image = SITE_URL + "assets/images/" + file;
       if (about && about.length) o.about = about.map(function (n) { return { "@type": "Thing", name: plainText(n) }; });
       return ldTag(o);
