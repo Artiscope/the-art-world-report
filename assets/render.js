@@ -595,6 +595,19 @@
         return '        <li><a href="@@' + folderOf(x) + '/' + esc(x.slug) + '/">' + (k ? '<span class="sec">' + txt(k) + '</span>' : "") + txt(or(x.title, "[Feature title]")) + '</a></li>';
       }).join("\n") + '\n      </ul>\n    </aside>\n' : "";
     }
+    // The artists in a feature, on the other Artiscope sites. One artist gets the full links;
+    // a feature about several gets one line each, linked by site name.
+    function elsewhereBlock(a) {
+      var all = elsewhereFor("tawr", folderOf(a) + "/" + a.slug + "/");
+      if (!all.length) return "";
+      var link = function (l, t) { return '<a href="' + esc(l.href) + '">' + txt(t) + '</a>'; };
+      var rows = all.length === 1
+        ? all[0].links.map(function (l) { return '<li>' + link(l, l.text) + ' ' + l.on + ' ' + txt(l.site) + '</li>'; })
+        : all.map(function (e) { return '<li>' + txt(e.name) + ': ' + e.links.map(function (l) { return link(l, l.site); }).join(", ") + '</li>'; });
+      var head = elsewhereHeading("tawr", all.length === 1 ? all[0].name : "");
+      if (all.length > 1) head = W("item.elsewhere-many", "The artists in this piece, elsewhere at Artiscope");
+      return '\n<div class="feature-sources feature-elsewhere">\n<h2>' + txt(head) + '</h2>\n<ul class="sources">\n' + rows.join("\n") + '\n</ul>\n</div>';
+    }
     function articlePage(a) {
       var subs = subjectsOf(a), kick = String(a.kicker || "").trim(), date = String(a.date || "").trim();
       var label = kick ? '<a href="' + sectionHref(kick) + '">' + txt(kick) + '</a>' : "";
@@ -603,7 +616,7 @@
         '    <h1 class="h-article" data-lines>' + txt(or(a.title, "[Feature title]")) + '</h1>\n' +
         '    <p class="byline" data-r style="--d:400ms">' + W("item.byline", "{site}", { site: txt(NAME()) }) + '</p>\n  </div>\n</section>', "words") + '\n' +
         M('<section class="article-body">\n  <div class="wrap">\n    <div class="article-grid">\n' + contents(body, /<ul class="sources">/.test(srcs)) +
-          '    <div class="prose">\n<p class="standfirst">' + txt(or(a.summary, "[One or two sentences that open the feature]")) + '</p>\n\n' + body + M(srcs, "sources") + '\n    </div>\n' + moreOf(a) + '    </div>\n  </div>\n</section>', "body") + '\n</article>' +
+          '    <div class="prose">\n<p class="standfirst">' + txt(or(a.summary, "[One or two sentences that open the feature]")) + '</p>\n\n' + body + elsewhereBlock(a) + M(srcs, "sources") + '\n    </div>\n' + moreOf(a) + '    </div>\n  </div>\n</section>', "body") + '\n</article>' +
         bandLinks(W("item.related-areas", "Related research areas"), subs.map(function (x) { return { label: or(x.name, "[Research area]"), href: "@@" + P.artists + "/" + x.slug + "/" }; }),
           '\n<section class="band band-grey"><div class="wrap"><p class="eyebrow">' + W("item.related-areas", "Related research areas") + '</p><p class="muted empty">[Choose the research areas this feature is filed under]</p></div></section>');
       main = tplWrap("article", a.slug, main); AO_KIND = "article";
@@ -682,6 +695,32 @@
     };
   }
 
-  var TAWR = { fromFiles: fromFiles, Site: Site, slug: slug, addressOf: addressOf, plain: plainOf };
+  // Links to the same artist on the other Artiscope sites. The list is data/artiscope-links.json,
+  // the same file in all five repositories; tools/build.mjs hands it over with setElsewhere().
+  var ELSEWHERE = null;
+  function setElsewhere(x) { ELSEWHERE = x && typeof x === "object" && x.artists && x.sites ? x : null; }
+  // here is this site's key, path this page's address (such as "artists/banksy/").
+  // Gives one entry per artist on the page: { name, links: [{ href, text, site, on }] }, where on is "in" for a magazine.
+  function elsewhereFor(here, path) {
+    if (!ELSEWHERE) return [];
+    var sites = ELSEWHERE.sites, out = [];
+    Object.keys(ELSEWHERE.artists).forEach(function (k) {
+      var e = ELSEWHERE.artists[k] || {}, mine = e[here];
+      var on = Array.isArray(mine) ? mine.some(function (t) { return t && t.path === path; }) : mine === path;
+      if (!on) return;
+      var links = [];
+      ["war", "gam", "tac", "sad", "tawr"].forEach(function (s) {
+        var site = sites[s] || {}, base = String(site.url || "");
+        if (s === here || !e[s] || !/^https:\/\/[a-z0-9.-]+\/$/.test(base)) return;
+        (Array.isArray(e[s]) ? e[s] : [{ path: e[s], title: site.link }]).forEach(function (t) {
+          if (t && /^[a-z0-9-]+\/[a-z0-9-]+\/$/.test(String(t.path || "")) && t.title) links.push({ href: base + t.path, text: String(t.title), site: String(site.name || ""), on: s === "tac" || s === "tawr" ? "in" : "on" });
+        });
+      });
+      if (links.length) out.push({ name: String(e.name || ""), links: links });
+    });
+    return out;
+  }
+  function elsewhereHeading(here, name) { return String(((ELSEWHERE || {}).sites || {})[here] && ELSEWHERE.sites[here].heading || "Elsewhere").split("{name}").join(name); }
+  var TAWR = { fromFiles: fromFiles, setElsewhere: setElsewhere, Site: Site, slug: slug, addressOf: addressOf, plain: plainOf };
   if (typeof module !== "undefined" && module.exports) module.exports = TAWR; else root.TAWR = TAWR;
 })(typeof window !== "undefined" ? window : this);
