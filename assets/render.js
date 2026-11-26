@@ -154,7 +154,7 @@
       // a page with its own layout has no menu bar, footer or shared sections; popups show on every page
       o.top = o.own ? "" : [groupHtml("top", true), o.top || ""].filter(Boolean).join("\n");
       main = (o.own ? [main, groupHtml("popups"), ao.fixed] : [groupHtml("top", false), main, ao.share, groupHtml("bottom"), groupHtml("popups"), ao.fixed]).filter(Boolean).join("\n  ");
-      var depth = (urlPath.match(/\//g) || []).length, r = o.file ? "" : new Array(depth + 1).join("../");
+      var depth = (urlPath.match(/\//g) || []).length, r = o.file ? (o.root || "") : new Array(depth + 1).join("../");
       var go = function (h) { return esc(hrefOf(h).split("@@").join(r)); };
       var name = txt(NAME()), st = hd(), hon = shared("header")[1], home = r || "./";
       var brand = function (n) { return markOk(SITE.mark) ? '<svg class="mark" viewBox="0 0 100 100" aria-hidden="true">' + SITE.mark.split("{id}").join("mk" + n) + '</svg><span>' + name + '</span>' : name; };
@@ -636,10 +636,12 @@
       return page(P[k] + "/index.html", w.name + " | " + NAME(), String(w.intro || ""), head + '\n<section class="band band-top0">\n  <div class="wrap">\n    ' + grid + '\n  </div>\n</section>', { head: listLd(P[k] + "/", w.name, w.intro) });
     }
     function notFound() {
-      var base = SITE_URL.replace(/^https:\/\/[^\/]+/, "") || "/";
-      var head = "<script>document.write('<base href=\"'+(location.hostname.slice(-9)==='github.io'?'" + esc(base) + "':'/')+'\">')</script>\n";
-      var main = '<section class="page-head page-tall">\n  <div class="wrap">\n    <p class="eyebrow">' + W("nf.eyebrow", "Page not found") + '</p>\n    <h1>' + W("nf.title", "This page does not exist.") + '</h1>\n    <p class="nf-back"><a class="btn" href="./">' + W("nf.home", "Back to the homepage") + '</a></p>\n  </div>\n</section>';
-      return page("", W("nf.eyebrow", "Page not found") + " | " + NAME(), "This page could not be found.", main, { file: "404.html", head: head });
+      var main = '<section class="page-head page-tall">\n  <div class="wrap">\n    <p class="eyebrow">' + W("nf.eyebrow", "Page not found") + '</p>\n    <h1>' + W("nf.title", "This page does not exist.") + '</h1>\n    <p class="nf-back"><a class="btn" href="/">' + W("nf.home", "Back to the homepage") + '</a></p>\n  </div>\n</section>';
+      var pg = page("", W("nf.eyebrow", "Page not found") + " | " + NAME(), "This page could not be found.", main, { file: "404.html", root: "/" });
+      // A missing page should never be indexed or point search engines at another address.
+      pg.html = pg.html.replace(/<link rel="canonical"[^>]*>\n/, "").replace(/<meta property="og:url"[^>]*>\n/, "");
+      if (!/<meta name="robots"/.test(pg.html)) pg.html = pg.html.replace("<head>\n", "<head>\n<meta name=\"robots\" content=\"noindex\">\n");
+      return pg;
     }
     // A list page is published once the menu bar or the footer leads to it.
     function linked(k) {
