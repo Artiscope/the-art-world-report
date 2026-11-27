@@ -593,3 +593,35 @@ main > .band:first-child:not(.briefing){padding-top:6.5rem}
   .front-pair{margin-top:2.25rem}
   body.home .site-header .wrap{padding-block:2rem 1.25rem}
 }
+
+/* The weekly market quiz (27 November 2026): five questions down the page, answers as plain tiles,
+   each answer opening onto its explanation and sources. No lines or arrows, the site's own type. */
+.qz{max-width:46rem}
+.qz-week{font-size:calc(.875rem * var(--b-scale, 1));color:var(--muted)}
+.qz-last{font-size:calc(.875rem * var(--b-scale, 1));color:var(--muted);margin-top:.5rem}
+.qz-list{list-style:none;padding:0;display:grid;gap:3rem;margin-top:2rem}
+.qz-ask{font-size:calc(1.625rem * var(--h-scale, 1));line-height:1.25;margin-top:.75rem;max-width:32ch}
+.qz-opts{display:grid;gap:.5rem;margin-top:1.25rem}
+.qz-opt{display:block;width:100%;text-align:left;background:var(--grey);color:var(--ink);padding:1rem 1.25rem;font-size:calc(1.0625rem * var(--b-scale, 1));line-height:1.4;transition:background .25s,color .25s}
+.qz-opt:not(:disabled):hover{background:color-mix(in srgb, var(--grey) 80%, var(--ink))}
+.qz-opt:disabled{cursor:default;color:var(--muted)}
+.qz-opt.is-right{background:var(--ink);color:var(--page)}
+.qz-opt.is-wrong{color:var(--ink);text-decoration:line-through;text-decoration-thickness:1px}
+.qz-ans{margin-top:1.25rem;line-height:1.65}
+.qz-ans p+p{margin-top:.75rem}
+.qz-verdict{font-family:var(--serif);font-style:italic;font-size:calc(1.25rem * var(--h-scale, 1))}
+.qz-ans a{text-decoration:underline;text-underline-offset:.2em;text-decoration-thickness:1px}
+.qz-ans a:hover{text-decoration-thickness:2px}
+.qz-src{font-size:calc(.875rem * var(--b-scale, 1));color:var(--muted)}
+.qz-src a{color:var(--ink)}
+.qz-end{margin-top:3.5rem;background:var(--grey);padding:2rem 1.5rem}
+.qz-score{font-size:calc(3rem * var(--h-scale, 1));margin-top:.5rem}
+.qz-line{margin-top:.75rem;color:var(--muted)}
+.qz-acts{margin-top:1.75rem;display:flex;flex-wrap:wrap;align-items:center;gap:1rem 1.75rem}
+.qz-shared{margin-top:1rem;font-size:calc(.875rem * var(--b-scale, 1));color:var(--muted);overflow-wrap:anywhere}
+@media (min-width:1024px){
+  .qz-ask{font-size:calc(2rem * var(--h-scale, 1))}
+  .qz-opts{grid-template-columns:1fr 1fr}
+  .qz-end{padding:2.75rem 3rem}
+  .qz-score{font-size:calc(4rem * var(--h-scale, 1))}
+}

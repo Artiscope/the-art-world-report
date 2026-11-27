@@ -326,6 +326,34 @@
       return '<section class="band' + band(st) + '" id="' + esc((ctx && ctx.id) || "links") + '">\n  <div class="wrap">\n' + (e ? '    <p class="eyebrow" data-r="fade">' + txt(e) + '</p>\n' : "") +
         (rows.length ? '    ' + linkList(rows) + '\n' : '    <p class="muted empty" data-r>[Links appear here once you add them]</p>\n') + '  </div>\n</section>';
     };
+    // The weekly market quiz: five questions on the week's stories, each answer linked to our story and its source.
+    // The questions are typed in the page list; the site's script marks the answers and keeps the score.
+    S["awr-quiz"] = function (st, ctx) {
+      var id = esc((ctx && ctx.id) || "quiz"), week = String(get(st, "week", "") || "").trim();
+      var qs = liveRows(get(st, "questions", [])).filter(function (r) { var q = r.x; return q.question && Array.isArray(q.options) && q.options.length >= 2 && Number(q.answer) >= 0 && Number(q.answer) < q.options.length; });
+      if (!qs.length) return '<section class="band quiz" id="' + id + '">\n  <div class="wrap"><p class="muted empty" data-r>[Questions appear here once you add them]</p></div>\n</section>';
+      var total = qs.length, lnk = function (label, h) { return label && addrOk(h) ? '<a href="' + esc(hrefOf(h)) + '"' + (/^https?:/.test(h) ? ' target="_blank" rel="noopener"' : "") + '>' + txt(label) + '</a>' : ""; };
+      var items = qs.map(function (r, n) {
+        var q = r.x, ours = lnk(q.story_label, q.story_href), theirs = lnk(q.source_label, q.source_href);
+        var opts = q.options.map(function (o, i) { return '          <button type="button" class="qz-opt" data-i="' + i + '">' + txt(o) + '</button>'; }).join("\n");
+        return '      <li class="qz-q" data-answer="' + Number(q.answer) + '" data-adh-b="questions.' + r.i + '">\n' +
+          '        <p class="eyebrow">' + W("quiz.count", "Question {n} of {total}", { n: n + 1, total: total }) + '</p>\n' +
+          '        <h2 class="qz-ask" id="' + id + '-q' + (n + 1) + '">' + txt(q.question) + '</h2>\n' +
+          '        <div class="qz-opts" role="group" aria-labelledby="' + id + '-q' + (n + 1) + '">\n' + opts + '\n        </div>\n' +
+          '        <div class="qz-ans" hidden>\n          <p class="qz-verdict" role="status"></p>\n' + (q.explain ? '          <p>' + withLinks(q.explain) + '</p>\n' : "") +
+          (ours || theirs ? '          <p class="qz-src">' + [ours ? W("quiz.ours", "Our story:") + ' ' + ours : "", theirs ? W("quiz.source", "Source:") + ' ' + theirs : ""].filter(Boolean).join("<br>") + '</p>\n' : "") +
+          '        </div>\n      </li>';
+      }).join("\n");
+      var after = get(st, "after", "") && addrOk(get(st, "after_href", "")) ? ' <a class="textlink" href="' + esc(hrefOf(st.after_href)) + '">' + txt(st.after) + '</a>' : "";
+      return '<section class="band band-top0 quiz" id="' + id + '">\n  <div class="wrap">\n    <div class="qz" data-quiz="' + esc(String(get(st, "key", "") || week || "quiz")) + '" data-total="' + total + '">\n' +
+        '    <noscript><style>.qz-ans[hidden]{display:block}</style></noscript>\n' +
+        (week ? '    <p class="qz-week" data-r="fade">' + txt(week) + '</p>\n' : "") +
+        '    <p class="qz-last" hidden></p>\n' +
+        '    <ol class="qz-list">\n' + items + '\n    </ol>\n' +
+        '    <div class="qz-end" hidden>\n      <p class="eyebrow">' + W("quiz.done", "Your score") + '</p>\n      <h2 class="qz-score"></h2>\n      <p class="qz-line"></p>\n' +
+        '      <p class="qz-acts"><button type="button" class="btn qz-share">' + W("quiz.share", "Share your score") + '</button> <button type="button" class="textlink qz-again">' + W("quiz.again", "Try again") + '</button>' + after + '</p>\n      <p class="qz-shared" role="status"></p>\n    </div>\n' +
+        '    </div>\n  </div>\n</section>';
+    };
     // Words in the reading column, with headings, lists and links, such as Privacy and Terms.
     S["awr-text"] = function (st, ctx) {
       var sf = String(get(st, "standfirst", "") || "").trim(), body = String(get(st, "body", "") || "");

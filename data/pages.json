@@ -58,6 +58,10 @@
             "reports/"
           ],
           [
+            "Weekly Quiz",
+            "weekly-quiz/"
+          ],
+          [
             "The Briefing",
             "briefing/"
           ]
@@ -136,6 +140,10 @@
               [
                 "The Briefing",
                 "briefing/"
+              ],
+              [
+                "Weekly Quiz",
+                "weekly-quiz/"
               ],
               [
                 "About",
@@ -242,6 +250,18 @@
             "band": "grey",
             "close": false,
             "skip_front": true
+          }
+        },
+        {
+          "id": "quiz-strip",
+          "type": "awr-briefing",
+          "visible": true,
+          "settings": {
+            "style": "strip",
+            "heading": "The weekly market *quiz*",
+            "text": "Five questions on this week's art business news, each answer linked to its source.",
+            "button": "Take the quiz",
+            "href": "weekly-quiz/"
           }
         },
         {
@@ -814,6 +834,125 @@
             "button": "Subscribe",
             "href": "",
             "main": true
+          }
+        }
+      ]
+    },
+    "weekly-quiz": {
+      "path": "weekly-quiz/index.html",
+      "title": "The Weekly Market Quiz | The Art World Report",
+      "description": "Five questions on the week's art business news, from the New York sales to Art Basel. Every answer links to our story and its original source.",
+      "sections": [
+        {
+          "id": "quiz-opening",
+          "type": "awr-opening",
+          "visible": true,
+          "settings": {
+            "size": "page",
+            "eyebrow": "Weekly market quiz",
+            "heading": "How closely did you follow the *week*?",
+            "note": "",
+            "text": "Five questions on the art business stories we reported this week. Every answer comes from a published report, and each one links to our story and to its original source."
+          }
+        },
+        {
+          "id": "quiz",
+          "type": "awr-quiz",
+          "visible": true,
+          "settings": {
+            "week": "The week to 27 November 2026",
+            "key": "2026-11-27",
+            "after": "Back to the Report",
+            "after_href": "./",
+            "questions": [
+              {
+                "question": "Van Gogh's Blossoming Chestnut Trees set a record for the artist at Sotheby's in New York on 18 November. What did the buyer pay, including fees?",
+                "options": [
+                  "$117 million",
+                  "$165 million",
+                  "$190.4 million",
+                  "$412 million"
+                ],
+                "answer": 2,
+                "explain": "$190.4 million with fees. The hammer price, the winning bid before the auction house's fee, was $165 million. The artist's previous auction record was $117 million with fees, set in 2022, and $412 million is what the whole 12-lot collection made. The day before the sale, Sotheby's announced a settlement with the heirs of Hedwig and Samuel Fischer over the painting's history in the Nazi era.",
+                "story_label": "New York November 2026 Auctions",
+                "story_href": "industry-news/new-york-november-2026-auctions/",
+                "source_label": "The Art Newspaper, 19 November 2026",
+                "source_href": "https://www.theartnewspaper.com/2026/11/19/van-gogh-painting-sells-for-record-7778m-after-nazi-loot-claims"
+              },
+              {
+                "question": "At Christie's 20th-century evening sale on 17 November, how many of the 75 lots on offer were guaranteed before the sale?",
+                "options": [
+                  "6",
+                  "14",
+                  "31",
+                  "36"
+                ],
+                "answer": 3,
+                "explain": "36, nearly half, and outside backers guaranteed 31 of them. A guaranteed lot sells whatever happens in the room, so a high sell-through rate says less about demand than it seems. Our feature on [how auction guarantees work](features/how-auction-guarantees-work/) explains the deals.",
+                "story_label": "New York November 2026 Auctions",
+                "story_href": "industry-news/new-york-november-2026-auctions/",
+                "source_label": "The Art Newspaper, 18 November 2026",
+                "source_href": "https://theartnewspaper.com/2026/11/18/kandinsky-record-and-a-trove-consigned-by-jeff-koons-buoy-christies-solid-20th-century-evening-sale-in-new-york"
+              },
+              {
+                "question": "The same night, Kandinsky's Betonte Ecken made $74 million hammer, a record for the artist. What had the seller paid for it at Sotheby's in 1986?",
+                "options": [
+                  "$1 million",
+                  "$17.4 million",
+                  "$26.5 million",
+                  "$40 million"
+                ],
+                "answer": 0,
+                "explain": "$1 million. With fees it sold for $85.8 million, within its estimate. The $17.4 million is what Jeff Koons paid in 2008 for Picasso's Le Baiser, which he sold that evening for $26.5 million hammer, well below its $40 million low estimate.",
+                "story_label": "New York November 2026 Auctions",
+                "story_href": "industry-news/new-york-november-2026-auctions/",
+                "source_label": "The Art Newspaper, 18 November 2026",
+                "source_href": "https://theartnewspaper.com/2026/11/18/kandinsky-record-and-a-trove-consigned-by-jeff-koons-buoy-christies-solid-20th-century-evening-sale-in-new-york"
+              },
+              {
+                "question": "Art Basel Paris closed two days early in October because of rioting. The organisers then agreed to cut every exhibitor's stand fee. By how much?",
+                "options": [
+                  "10%",
+                  "20%",
+                  "35%",
+                  "36%"
+                ],
+                "answer": 1,
+                "explain": "20%, for all 211 exhibitors, agreed on 11 November. The Art Newspaper put the time lost at about 36% of the planned run. The cut covers the stand fee only, which is one part of what a gallery spends on a fair, and the report does not say whether Art Basel will help with shipping, travel or staff.",
+                "story_label": "Art Basel Paris Closes Early, and Refunds a Fifth of Stand Fees",
+                "story_href": "industry-news/art-basel-paris-closes-early-and-refunds-a-fifth-of-stand-fees/",
+                "source_label": "The Art Newspaper, 11 November 2026",
+                "source_href": "https://www.theartnewspaper.com/2026/11/11/art-basel-offers-compensation-to-dealers-after-early-closure-of-paris-fair"
+              },
+              {
+                "question": "Art Basel Miami Beach opens to the public on 4 December with a smaller main section. How many galleries are in its Galleries sector this year?",
+                "options": [
+                  "204",
+                  "226",
+                  "272",
+                  "287"
+                ],
+                "answer": 0,
+                "explain": "204, down from 226 in 2025. The fair has 272 exhibitors across all its sectors and about 12% less floor space. Art Basel calls the smaller fair a deliberate choice, made after feedback from its selection committee, exhibitors and visitors.",
+                "story_label": "Art Basel Miami Beach 2026: A Smaller Fair, by Design",
+                "story_href": "industry-news/art-basel-miami-beach-2026-a-smaller-fair-by-design/",
+                "source_label": "The Art Newspaper, 29 September 2026",
+                "source_href": "https://theartnewspaper.com/2026/09/29/art-basel-miami-beach-scaled-down-floorplan-galleries-sector"
+              }
+            ]
+          }
+        },
+        {
+          "id": "quiz-briefing",
+          "type": "awr-briefing",
+          "visible": true,
+          "settings": {
+            "style": "strip",
+            "heading": "The Art Business *Briefing*",
+            "text": "A research-led weekly email on the business of art, from auction fees to gallery economics.",
+            "button": "Find out more",
+            "href": "briefing/"
           }
         }
       ]
