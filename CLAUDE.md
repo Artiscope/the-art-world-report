@@ -54,8 +54,14 @@ there is nothing to edit by hand.
   set to that section.
 - `assets/vendor/lenis.mjs` is a copy of Lenis 1.3.19 (MIT licence), the
   smooth scrolling. It is kept here so nothing loads from another company.
-- Run `python3 tools/build.py _site` to check a change builds. Do not
-  commit `_site`. Do not edit `.github/workflows/` unless the owner asks.
+- The site is built with Astro (since the pilot of 27 November 2026; see
+  `ASTRO.md`). Run `npm ci` once, then `npx astro build` to check a change
+  builds, or `npx astro dev` for a local copy that reloads as you edit.
+  The build stops with a plain message if an article or research area in
+  `data/content.json` is malformed (rules in `src/content.config.ts`).
+  `python3 tools/build.py _site` still works and gives the same pages,
+  without the smoother page changes. Do not commit `_site`, `public` or
+  `node_modules`. Do not edit `.github/workflows/` unless the owner asks.
 - These files are the template's, kept the same as
   `templates/the-art-world-report` in Artiscope/artiscope-digital-home:
   `assets/render.js`, `assets/site.css`, `assets/site.js` and

@@ -27,11 +27,19 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url || steps.second.outputs.page_url || steps.third.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Install Astro
+        run: npm ci --no-audit --no-fund
       - name: Build the pages
-        run: python3 tools/build.py _site
+        # Astro builds the site into _site. The pages are still drawn by assets/render.js
+        # from the data files, so they match the Digital Home preview exactly.
+        run: npx astro build
       - name: Add the previews of work not yet published
         # Artiscope Digital Home works on copies of the site, kept as branches named adh/<name>.
-        # Each copy is built with its own tools/build.py into preview/<name>/, and every preview
+        # Each copy is built the way its own files say into preview/<name>/, and every preview
         # page is marked so search engines ignore it. A copy that does not build is left out.
         run: |
           git fetch --quiet --depth=1 origin '+refs/heads/adh/*:refs/remotes/origin/adh/*' || true
@@ -39,7 +47,14 @@ jobs:
             name="${ref#origin/adh/}"
             case "$name" in *[!a-z0-9-]*|"") continue;; esac
             git worktree add --quiet --detach "/tmp/preview-src/$name" "$ref"
-            if python3 "/tmp/preview-src/$name/tools/build.py" "/tmp/preview-out/$name"; then
+            # A copy made after the move to Astro is built with Astro; an older copy with tools/build.py.
+            if [ -f "/tmp/preview-src/$name/astro.config.mjs" ]; then
+              build() { (cd "/tmp/preview-src/$name" && npm ci --no-audit --no-fund --silent && npx astro build && mv _site "/tmp/preview-out/$name"); }
+            else
+              build() { python3 "/tmp/preview-src/$name/tools/build.py" "/tmp/preview-out/$name"; }
+            fi
+            mkdir -p /tmp/preview-out
+            if build; then
               rm -f "/tmp/preview-out/$name/CNAME" "/tmp/preview-out/$name/sitemap.xml" "/tmp/preview-out/$name/robots.txt"
               find "/tmp/preview-out/$name" -name '*.html' -exec sed -i '0,/<head>/s//<head><meta name="robots" content="noindex, nofollow">/' {} +
               mkdir -p _site/preview && mv "/tmp/preview-out/$name" "_site/preview/$name"

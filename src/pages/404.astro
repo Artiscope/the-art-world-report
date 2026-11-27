@@ -1,0 +1,5 @@
+---
+import { buildSite } from "../lib/site.mjs";
+const page = buildSite().pages.find((p) => p.path === "404.html");
+---
+<Fragment set:html={page.html} />
