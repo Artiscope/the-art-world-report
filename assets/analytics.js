@@ -5,7 +5,7 @@
    The same file is used on every Artiscope publication; only the three lines below differ. */
 (function () {
   'use strict';
-  var GA4_ID = '';                 // this site's GA4 measurement ID, e.g. 'G-ABC123XYZ'. Empty = switched off.
+  var GA4_ID = 'G-KJB9PWBM9L';                 // this site's GA4 measurement ID, e.g. 'G-ABC123XYZ'. Empty = switched off.
   var WEBSITE = 'theartworldreport.com';
   var PRIVACY = '/privacy/';       // this site's privacy page
 
