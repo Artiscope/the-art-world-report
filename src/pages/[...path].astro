@@ -1,0 +1,17 @@
+---
+// Every page of the site, as drawn by assets/render.js. Each one keeps the exact address it
+// had before the move to Astro.
+import { getCollection } from "astro:content";
+import { buildSite, routeOf } from "../lib/site.mjs";
+
+export async function getStaticPaths() {
+  // reading the collections runs the content checks in src/content.config.ts
+  await getCollection("articles");
+  await getCollection("researchAreas");
+  return buildSite().pages
+    .filter((p) => p.path !== "404.html")
+    .map((p) => ({ params: { path: routeOf(p.path) }, props: { html: p.html } }));
+}
+const { html } = Astro.props;
+---
+<Fragment set:html={html} />
