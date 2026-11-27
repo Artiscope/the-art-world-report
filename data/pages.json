@@ -58,6 +58,10 @@
             "reports/"
           ],
           [
+            "All features",
+            "features/"
+          ],
+          [
             "Weekly Quiz",
             "weekly-quiz/"
           ],
@@ -317,8 +321,8 @@
             "style": "full",
             "eyebrow": "Newsletter",
             "heading": "The Art Business *Briefing*",
-            "text": "A research-led weekly email on the business of art, from auction fees to gallery economics. Ask to join now and you will get it from the first issue.",
-            "button": "Subscribe",
+            "text": "A research-led weekly email on the business of art, from auction fees to gallery economics. The first issue has not gone out yet. Ask to join now and you will get it from the start.",
+            "button": "Ask to join by email",
             "href": "",
             "main": false
           }
@@ -387,7 +391,7 @@
             "style": "strip",
             "eyebrow": "",
             "heading": "The Art Business *Briefing*",
-            "text": "A research-led weekly email on the business of art, from auction fees to gallery economics. Ask to join now and you will get it from the first issue.",
+            "text": "A research-led weekly email on the business of art, from auction fees to gallery economics. The first issue has not gone out yet. Ask to join now and you will get it from the start.",
             "button": "About the Briefing",
             "href": "briefing/",
             "main": false
@@ -444,7 +448,7 @@
             "style": "strip",
             "eyebrow": "",
             "heading": "The Art Business *Briefing*",
-            "text": "A research-led weekly email on the business of art, from auction fees to gallery economics. Ask to join now and you will get it from the first issue.",
+            "text": "A research-led weekly email on the business of art, from auction fees to gallery economics. The first issue has not gone out yet. Ask to join now and you will get it from the start.",
             "button": "About the Briefing",
             "href": "briefing/",
             "main": false
@@ -520,7 +524,7 @@
             "style": "strip",
             "eyebrow": "",
             "heading": "The Art Business *Briefing*",
-            "text": "A research-led weekly email on the business of art, from auction fees to gallery economics. Ask to join now and you will get it from the first issue.",
+            "text": "A research-led weekly email on the business of art, from auction fees to gallery economics. The first issue has not gone out yet. Ask to join now and you will get it from the start.",
             "button": "About the Briefing",
             "href": "briefing/",
             "main": false
@@ -600,7 +604,7 @@
             "style": "strip",
             "eyebrow": "",
             "heading": "The Art Business *Briefing*",
-            "text": "A research-led weekly email on the business of art, from auction fees to gallery economics. Ask to join now and you will get it from the first issue.",
+            "text": "A research-led weekly email on the business of art, from auction fees to gallery economics. The first issue has not gone out yet. Ask to join now and you will get it from the start.",
             "button": "About the Briefing",
             "href": "briefing/",
             "main": false
@@ -676,7 +680,7 @@
             "style": "strip",
             "eyebrow": "",
             "heading": "The Art Business *Briefing*",
-            "text": "A research-led weekly email on the business of art, from auction fees to gallery economics. Ask to join now and you will get it from the first issue.",
+            "text": "A research-led weekly email on the business of art, from auction fees to gallery economics. The first issue has not gone out yet. Ask to join now and you will get it from the start.",
             "button": "About the Briefing",
             "href": "briefing/",
             "main": false
@@ -752,7 +756,7 @@
             "style": "strip",
             "eyebrow": "",
             "heading": "The Art Business *Briefing*",
-            "text": "A research-led weekly email on the business of art, from auction fees to gallery economics. Ask to join now and you will get it from the first issue.",
+            "text": "A research-led weekly email on the business of art, from auction fees to gallery economics. The first issue has not gone out yet. Ask to join now and you will get it from the start.",
             "button": "About the Briefing",
             "href": "briefing/",
             "main": false
@@ -774,7 +778,7 @@
             "eyebrow": "Section",
             "heading": "Reports",
             "note": "",
-            "text": "Longer pieces built on the main industry data, explained in plain English.",
+            "text": "Longer pieces built on the main industry data, explained in plain English. The first looks at the Art Basel and UBS Global Art Market Report 2026. More will follow as the main annual studies are published.",
             "wide": false,
             "topics": [],
             "email": false,
@@ -802,6 +806,24 @@
           }
         },
         {
+          "id": "reports-alongside",
+          "type": "awr-features",
+          "visible": true,
+          "settings": {
+            "eyebrow": "Read alongside",
+            "heading": "",
+            "only": "Market Analysis",
+            "strict": true,
+            "folder": "",
+            "area": "",
+            "every": false,
+            "count": 3,
+            "empty": "",
+            "band": "",
+            "close": true
+          }
+        },
+        {
           "id": "reports-3",
           "type": "awr-briefing",
           "visible": true,
@@ -809,7 +831,7 @@
             "style": "strip",
             "eyebrow": "",
             "heading": "The Art Business *Briefing*",
-            "text": "A research-led weekly email on the business of art, from auction fees to gallery economics. Ask to join now and you will get it from the first issue.",
+            "text": "A research-led weekly email on the business of art, from auction fees to gallery economics. The first issue has not gone out yet. Ask to join now and you will get it from the start.",
             "button": "About the Briefing",
             "href": "briefing/",
             "main": false
@@ -820,7 +842,7 @@
     "briefing": {
       "path": "briefing/index.html",
       "title": "The Art Business Briefing | The Art World Report",
-      "description": "The Art Business Briefing is a research-led weekly email from The Art World Report on the business of art. Ask to join and you will get it from the first issue.",
+      "description": "The Art Business Briefing is a research-led weekly email from The Art World Report on the business of art. The first issue has not gone out yet. Ask to join and you will get it from the start.",
       "sections": [
         {
           "id": "briefing-1",
@@ -830,8 +852,8 @@
             "style": "full",
             "eyebrow": "Newsletter",
             "heading": "The Art Business *Briefing*",
-            "text": "A research-led weekly email on the business of art, from auction fees to gallery economics. Ask to join now and you will get it from the first issue.",
-            "button": "Subscribe",
+            "text": "A research-led weekly email on the business of art, from auction fees to gallery economics. The first issue has not gone out yet. Ask to join now and you will get it from the start.",
+            "button": "Ask to join by email",
             "href": "",
             "main": true
           }
@@ -1067,7 +1089,7 @@
             "style": "strip",
             "eyebrow": "",
             "heading": "The Art Business *Briefing*",
-            "text": "A research-led weekly email on the business of art, from auction fees to gallery economics. Ask to join now and you will get it from the first issue.",
+            "text": "A research-led weekly email on the business of art, from auction fees to gallery economics. The first issue has not gone out yet. Ask to join now and you will get it from the start.",
             "button": "About the Briefing",
             "href": "briefing/",
             "main": false
@@ -1212,7 +1234,7 @@
               "style": "strip",
               "eyebrow": "",
               "heading": "The Art Business *Briefing*",
-              "text": "A research-led weekly email on the business of art, from auction fees to gallery economics. Ask to join now and you will get it from the first issue.",
+              "text": "A research-led weekly email on the business of art, from auction fees to gallery economics. The first issue has not gone out yet. Ask to join now and you will get it from the start.",
               "button": "About the Briefing",
               "href": "briefing/",
               "main": false
@@ -1237,7 +1259,7 @@
               "style": "strip",
               "eyebrow": "",
               "heading": "The Art Business *Briefing*",
-              "text": "A research-led weekly email on the business of art, from auction fees to gallery economics. Ask to join now and you will get it from the first issue.",
+              "text": "A research-led weekly email on the business of art, from auction fees to gallery economics. The first issue has not gone out yet. Ask to join now and you will get it from the start.",
               "button": "About the Briefing",
               "href": "briefing/",
               "main": false

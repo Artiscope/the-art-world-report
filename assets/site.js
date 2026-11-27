@@ -47,19 +47,23 @@
     var targets=document.querySelectorAll('[data-r],[data-lines],[data-words]');
     if(watch){watch.disconnect();watch=null}
     if(framed||reduced||!('IntersectionObserver' in window)){html.classList.remove('js');Array.prototype.forEach.call(targets,function(t){t.classList.add('in')});return}
+    /* Anything already on screen when the page opens is shown at once, so a visitor never waits for a headline.
+       The rising words are kept for what comes into view as the page scrolls. */
+    var fold=window.innerHeight||document.documentElement.clientHeight;
+    Array.prototype.forEach.call(targets,function(t){if(t.classList.contains('in'))return;var b=t.getBoundingClientRect();if(b.top<fold&&b.bottom>0){t.classList.add('in');t.setAttribute('data-now','')}});
     html.classList.add('js');
-    document.querySelectorAll('[data-lines]').forEach(function(el){
+    /* The words are split into spans only to move them; screen readers still read the heading and its links as written. */
+    document.querySelectorAll('[data-lines]:not([data-now])').forEach(function(el){
       if(el.getAttribute('data-split'))return;el.setAttribute('data-split','1');
-      el.setAttribute('aria-label',el.textContent.trim());
       var top=null,line=-1;
-      splitWords(el,'ln',true).forEach(function(w){w.setAttribute('aria-hidden','true');if(w.offsetTop!==top){top=w.offsetTop;line++}w.firstChild.style.setProperty('--l',line)});
+      splitWords(el,'ln',true).forEach(function(w){if(w.offsetTop!==top){top=w.offsetTop;line++}w.firstChild.style.setProperty('--l',line)});
     });
-    document.querySelectorAll('[data-words]').forEach(function(el){
+    document.querySelectorAll('[data-words]:not([data-now])').forEach(function(el){
       if(el.getAttribute('data-split'))return;el.setAttribute('data-split','1');
       splitWords(el,'wd',false).forEach(function(w,i){w.style.setProperty('--i',i)});
     });
     watch=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');watch.unobserve(e.target)}})},{rootMargin:'0px 0px -10% 0px'});
-    Array.prototype.forEach.call(targets,function(t){watch.observe(t)});
+    Array.prototype.forEach.call(targets,function(t){if(!t.classList.contains('in'))watch.observe(t)});
   }
   /* Smooth scrolling, from the copy kept in the site. The page works normally if it cannot load. */
   function setupScroll(){
@@ -290,7 +294,50 @@
       });
     });
   }
-  function refresh(){timers.forEach(clearInterval);timers=[];setupMotion();setupScroll();aoWire();setupMenu();setupSignup();setupAnnounce();setupSlides();setupGalleries();setupMailForms();setupPopups();setupQuiz()}
+  /* Search: reads the list of every feature, section and research area (search/index.json) and shows the
+     matches in the visitor's browser. Nothing typed is sent anywhere. */
+  function fold(t){return String(t||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[\u2018\u2019\u02bc`]/g,"'")}
+  function escH(t){return String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+  function setupSearch(){
+    var form=document.querySelector('form[data-search]');if(!form||form.getAttribute('data-wired'))return;form.setAttribute('data-wired','1');
+    var input=form.elements.q,list=document.querySelector('.search-results'),count=document.querySelector('.search-count'),browse=document.querySelector('.search-browse');
+    var data=null,base=new URL('./',location.href);
+    function load(){return data?Promise.resolve(data):fetch(new URL('index.json',base).href).then(function(r){if(!r.ok)throw new Error(r.status);return r.json()}).then(function(j){data=(j.items||[]).map(function(x){x._t=fold(x.t);x._s=fold(x.s);x._c=fold(x.c);x._k=fold(x.k);x._b=fold(x.b);return x});return data})}
+    function snippet(x,terms){
+      var low=x._b,at=-1,i;for(i=0;i<terms.length&&at<0;i++)at=low.indexOf(terms[i]);
+      if(at<0||terms.every(function(t){return x._t.indexOf(t)>=0||x._c.indexOf(t)>=0}))return escH(x.c);
+      var from=Math.max(0,low.lastIndexOf(' ',Math.max(0,at-70))),to=low.indexOf(' ',Math.min(low.length,at+150));if(to<0)to=low.length;
+      var bit=escH((from>0?'\u2026':'')+x.b.slice(from,to).trim()+(to<low.length?'\u2026':''));
+      terms.forEach(function(t){if(t.length<3)return;bit=bit.replace(new RegExp('('+t.replace(/[.*+?^${}()|[\]\\]/g,'\\$&').replace(/'/g,"['\u2019]")+')','gi'),'<mark>$1</mark>')});
+      return bit;
+    }
+    function run(q){
+      var terms=fold(q).replace(/[^a-z0-9'\s-]/g,' ').split(/\s+/).filter(function(t){return t.length>1&&['the','and','of','a','an','in','on','to','for'].indexOf(t)<0});
+      list.innerHTML='';
+      if(!q.trim()){count.textContent='';if(browse)browse.hidden=false;return}
+      if(!terms.length){count.textContent=SW('search.short','Type a longer word to search.');return}
+      count.textContent=SW('search.looking','Searching.');
+      load().then(function(items){
+        var hits=items.map(function(x){
+          var score=0,ok=terms.every(function(t){
+            var tw=t.replace(/'s$/,''),hit=0;
+            if(x._t.indexOf(tw)>=0)hit+=12;if(x._s.indexOf(tw)>=0)hit+=5;if(x._c.indexOf(tw)>=0)hit+=4;if(x._k.indexOf(tw)>=0)hit+=3;
+            if(x._b){var n=x._b.split(tw).length-1;hit+=Math.min(n,6)}
+            score+=hit;return hit>0});
+          return ok?{x:x,score:score}:null}).filter(Boolean).sort(function(a,b){return b.score-a.score});
+        if(!hits.length){
+          count.innerHTML=SWh('search.none','Nothing on the Report matches \u201c{q}\u201d.').replace('{q}',escH(q.trim()))+' '+SWh('search.none-help','Try a single word, a different spelling, or browse the sections below.');
+          if(browse)browse.hidden=false;return}
+        count.textContent=hits.length===1?SW('search.one','One result for \u201c{q}\u201d.',{q:q.trim()}):SW('search.many','{n} results for \u201c{q}\u201d.',{n:String(hits.length),q:q.trim()});
+        if(browse)browse.hidden=true;
+        list.innerHTML=hits.slice(0,40).map(function(h){var x=h.x;return '<li class="result"><p class="eyebrow">'+escH(x.s)+'</p><h2><a href="'+escH(new URL(x.u,new URL('../',base)).href)+'">'+escH(x.t)+'</a></h2><p class="muted">'+snippet(x,terms)+'</p></li>'}).join('');
+      }).catch(function(){count.textContent=SW('search.failed','Search could not load just now. Please try again, or browse the sections below.');if(browse)browse.hidden=false});
+    }
+    var q=new URLSearchParams(location.search).get('q')||'';input.value=q;run(q);
+    form.addEventListener('submit',function(e){e.preventDefault();var v=input.value;history.replaceState(null,'',v.trim()?'?q='+encodeURIComponent(v.trim()):location.pathname);run(v)});
+    if(!q)input.focus();
+  }
+  function refresh(){timers.forEach(clearInterval);timers=[];setupMotion();setupScroll();aoWire();setupMenu();setupSignup();setupAnnounce();setupSlides();setupGalleries();setupMailForms();setupPopups();setupQuiz();setupSearch()}
   window.SiteJS={refresh:refresh};
   refresh();
 })();

@@ -160,14 +160,21 @@
       var name = txt(NAME()), st = hd(), hon = shared("header")[1], home = r || "./";
       var brand = function (n) { return markOk(SITE.mark) ? '<svg class="mark" viewBox="0 0 100 100" aria-hidden="true">' + SITE.mark.split("{id}").join("mk" + n) + '</svg><span>' + name + '</span>' : name; };
       main = String(main).split("@@").join(r);
-      var links = pairs(get(st, "links", [])).map(function (x) { return '<a href="' + go(x.l[1]) + '" data-adh-b="links.' + x.k + '">' + txt(x.l[0]) + '</a>'; }).join("\n        ");
-      var menuLinks = pairs(get(st, "menu", [])).map(function (x, i) { return '<a href="' + go(x.l[1]) + '" style="--i:' + i + '" data-adh-b="menu.' + x.k + '">' + txt(x.l[0]) + '</a>'; }).join("\n      ");
+      // The link to the page being shown says so (aria-current), and on a feature its own section is marked too.
+      var norm = function (h) { return String(h || "").replace(/^\.?\//, "").replace(/index\.html$/, ""); };
+      var here = function (h) { h = norm(h); if (/^(https?:|mailto:|#)/i.test(h)) return ""; return h === urlPath ? ' aria-current="page"' : (o.section && h === o.section ? ' class="is-section"' : ""); };
+      var links = pairs(get(st, "links", [])).map(function (x) { return '<a href="' + go(x.l[1]) + '"' + here(x.l[1]) + ' data-adh-b="links.' + x.k + '">' + txt(x.l[0]) + '</a>'; }).join("\n        ");
+      var menuLinks = pairs(get(st, "menu", [])).map(function (x, i) { return '<a href="' + go(x.l[1]) + '"' + here(x.l[1]) + ' style="--i:' + i + '" data-adh-b="menu.' + x.k + '">' + txt(x.l[0]) + '</a>'; }).join("\n      ");
+      var searchUrl = r + "search/", searching = urlPath === "search/";
+      var searchBox = function (id) { return '<form class="search-box" role="search" action="' + searchUrl + '" method="get"><label class="vh" for="' + id + '">' + W("search.label", "Search the Report") + '</label><input id="' + id + '" name="q" type="search" autocomplete="off" placeholder="' + W("search.menu-placeholder", "Search the Report") + '"><button class="btn" type="submit">' + W("search.button", "Search") + '</button></form>'; };
       var line = get(st, "line", "");
-      var nav = !hon || o.own ? "" : '<header class="site-header" id="nav">\n  <div class="wrap">\n    <a class="wordmark" href="' + home + '">' + brand(1) + '</a>\n' + (line ? '    <p class="mast-line">' + txt(line) + '</p>\n' : "") + '    <div class="head-right">\n' +
+      var nav = !hon || o.own ? "" : '<header class="site-header" id="nav">\n  <div class="wrap">\n    <a class="wordmark" href="' + home + '" aria-label="' + W("sr.home", "{site}, home page", { site: name }) + '">' + brand(1) + '</a>\n' + (line ? '    <p class="mast-line">' + txt(line) + '</p>\n' : "") + '    <div class="head-right">\n' +
         (links ? '      <nav class="head-nav" aria-label="' + W("sr.nav", "Primary") + '">\n        ' + links + '\n      </nav>\n' : "") +
+        '      <a class="search-link" href="' + searchUrl + '"' + (searching ? ' aria-current="page"' : "") + '>' + W("search.button", "Search") + '</a>\n' +
         (menuLinks ? '      <button class="menu-btn" id="menu-open" type="button" aria-expanded="false" aria-controls="menu">' + W("btn.menu", "Menu") + '</button>\n' : "") + '    </div>\n  </div>\n</header>\n' +
         (menuLinks ? '<div class="menu" id="menu" role="dialog" aria-modal="true" aria-label="' + W("btn.menu", "Menu") + '" aria-hidden="true">\n  <div class="menu-panel"></div>\n  <div class="menu-inner">\n' +
           '    <div class="menu-top"><span>' + W("btn.menu", "Menu") + '</span><button type="button" id="menu-close">' + W("btn.close", "Close") + '</button></div>\n' +
+          '    <div class="menu-search">' + searchBox("menu-q") + '</div>\n' +
           '    <nav class="menu-nav" aria-label="' + W("sr.menu", "All sections") + '">\n      ' + menuLinks + '\n    </nav>\n' +
           '    <div class="menu-foot">\n      <a href="mailto:' + esc(MAIL) + '">' + esc(MAIL) + '</a>\n' + (line ? '      <span>' + txt(line) + '</span>\n' : "") + '    </div>\n  </div>\n</div>' : "");
       var ft = shared("footer"), f = ft[0];
@@ -176,10 +183,10 @@
         return '        <div data-adh-b="columns.' + x.k + '">\n' + (c.title ? '          <p class="eyebrow">' + txt(c.title) + '</p>\n' : "") + (ls ? '          <ul>\n' + ls + '\n          </ul>\n' : "") + '        </div>';
       }).join("\n");
       var legal = get(f, "legal", ""), social = socialHtml(), tag = get(f, "tagline", "");
-      var foot = !ft[1] || o.own ? "" : '<footer class="site-footer foot" id="foot">\n  <div class="wrap">\n    <div class="foot-top">\n      <div class="foot-brand">\n        <a class="wordmark" href="' + home + '">' + brand(2) + '</a>\n' +
+      var foot = !ft[1] || o.own ? "" : '<footer class="site-footer foot" id="foot">\n  <div class="wrap">\n    <div class="foot-top">\n      <div class="foot-brand">\n        <a class="wordmark" href="' + home + '" aria-label="' + W("sr.home", "{site}, home page", { site: name }) + '">' + brand(2) + '</a>\n' +
         (tag ? '        <p class="tag">' + txt(tag) + '</p>\n' : "") + (get(f, "email", true) !== false ? '        <a class="mail" href="mailto:' + esc(MAIL) + '">' + esc(MAIL) + '</a>\n' : "") + '      </div>\n' +
         (cols ? '      <div class="foot-cols">\n' + cols + '\n      </div>\n' : "") + '    </div>\n' + social + (legal ? '    <p class="legal">' + txt(legal).split("{year}").join(String(new Date().getFullYear())) + '</p>\n' : "") + '  </div>\n</footer>';
-      var noindex = SITE.indexed !== true ? '<meta name="robots" content="noindex, nofollow">\n' : "";
+      var noindex = SITE.indexed !== true ? '<meta name="robots" content="noindex, nofollow">\n' : (o.noindex ? '<meta name="robots" content="noindex">\n' : "");
       var html = '<!doctype html>\n<html lang="en-GB">\n<head>\n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1">\n' + noindex +
         '<title>' + esc(title) + '</title>\n<meta name="description" content="' + esc(desc) + '">\n<link rel="canonical" href="' + esc(SITE_URL + urlPath) + '">\n' +
         '<meta property="og:title" content="' + esc(title) + '">\n<meta property="og:description" content="' + esc(desc) + '">\n' +
@@ -190,7 +197,7 @@
         '<link rel="stylesheet" href="' + r + 'assets/site.css">\n' + (THEME || "") + secCssTag() + wordsTag() +
         '</head>\n<body' + (function () { var c = [/class="ann /.test(o.top || "") ? "has-ann" : "", path === "index.html" && !o.file ? "home" : ""].filter(Boolean).join(" "); return c ? ' class="' + c + '"' : ""; })() + '>\n<a class="skip" href="#main">' + W("menu.skip", "Skip to content") + '</a>\n' + (o.top ? String(o.top).split("@@").join(r) + "\n" : "") + nav + '\n<main id="main">\n' + main + '\n</main>\n' + foot + '\n' +
         '<script src="' + r + 'assets/analytics.js" defer></script>\n<script src="' + r + 'assets/site.js" defer></script>\n</body>\n</html>\n';
-      return { path: o.file || path, url: urlPath, html: html, lastmod: o.lastmod || "" };
+      return { path: o.file || path, url: urlPath, html: html, lastmod: o.lastmod || "", unlisted: !!o.noindex };
     }
 
     // ----- sections -----
@@ -198,13 +205,13 @@
     // The newsletter: a full band with the sign-up box, or a short strip at the foot of a page that leads to it.
     // The box opens the visitor's own email app with a request to join; the site sends and keeps nothing.
     function briefing(st, id, h1) {
-      var e = get(st, "eyebrow", ""), h = get(st, "heading", ""), t = get(st, "text", ""), b = get(st, "button", "") ? txt(st.button) : W("btn.join", "Subscribe"), tag = h1 ? "h1" : "h2";
+      var e = get(st, "eyebrow", ""), h = get(st, "heading", ""), t = get(st, "text", ""), b = get(st, "button", "") ? txt(st.button) : W("btn.join", "Ask to join by email"), tag = h1 ? "h1" : "h2";
       return '<section class="band band-dark briefing" id="' + esc(id) + '">\n  <div class="wrap">\n    <div class="briefing-copy">\n' +
         (e ? '      <p class="eyebrow" data-r="fade">' + txt(e) + '</p>\n' : "") + (h ? '      <' + tag + ' data-lines>' + ital(h) + '</' + tag + '>\n' : "") +
         (t ? '      <p class="lead" data-words style="--s:16ms">' + txt(t) + '</p>\n' : "") +
         '      <form class="signup" data-signup data-email="' + esc(MAIL) + '" data-r style="--d:300ms" novalidate>\n        <label class="vh" for="' + esc(id) + '-email">' + W("form.email", "Email address") + '</label>\n' +
         '        <input id="' + esc(id) + '-email" name="email" type="email" autocomplete="email" placeholder="' + W("form.placeholder", "Your email address") + '">\n        <button class="btn btn-light" type="submit">' + b + '</button>\n      </form>\n' +
-        '      <p class="signup-note" role="status">' + W("form.note", "This opens your own email app with a message ready to send to {email}.", { email: esc(MAIL) }) + '</p>\n' +
+        '      <p class="signup-note" role="status">' + W("form.note-join", "This opens your email app with a short request to join, addressed to {email}. If you use webmail, write to that address and we will add you.", { email: '<a href="mailto:' + esc(MAIL) + '">' + esc(MAIL) + '</a>' }) + '</p>\n' +
         (get(st, "pitch", "") ? '      <p class="signup-note">' + txt(st.pitch) + '</p>\n' : "") + '    </div>\n  </div>\n</section>';
     }
     S.signup = function (st, ctx) { return briefing(st, (ctx && ctx.id) || "signup", false); };
@@ -256,11 +263,21 @@
       var only = sectionNames(get(st, "only", "")), folder = String(get(st, "folder", "") || "").trim(), area = String(get(st, "area", "") || "").trim(), n = Math.max(1, Math.min(48, Number(get(st, "count", 6)) || 6));
       var onFront = get(st, "skip_front", false) === true ? frontOf(ctx && ctx.page) : [];
       var list = ARTICLES.filter(function (a) { return onFront.indexOf(a.slug) < 0 && (!only.length || inSections(a, only)) && (!folder || folderOf(a) === folder) && (!area || subjectsOf(a).some(function (x) { return x.slug === area; })); });
+      // "strict" keeps only features whose own section this is
+      if (get(st, "strict", false) === true && only.length) list = list.filter(function (a) { return only.indexOf(String(a.kicker || "").trim().toLowerCase()) >= 0; });
       var shown = get(st, "every", true) === false ? list.slice(0, n) : list, e = get(st, "eyebrow", ""), h = get(st, "heading", "");
       var empty = get(st, "empty", "") || "[Features appear here once you add them]";
+      // On a section's own page, features from other sections that are also filed here come second, under their own label.
+      var mine = shown, others = [];
+      if (only.length === 1 && get(st, "strict", false) !== true) {
+        mine = shown.filter(function (a) { return String(a.kicker || "").trim().toLowerCase() === only[0]; });
+        others = shown.filter(function (a) { return mine.indexOf(a) < 0; });
+      }
+      var secName = only.length === 1 ? txt(String(get(st, "only", "")).trim()) : "";
+      var also = others.length ? '    <div class="also">\n      <p class="eyebrow" data-r="fade">' + W("sec.also", "Also filed under {section}", { section: secName }) + '</p>\n      <p class="muted also-note" data-r="fade">' + W("sec.also-note", "Stories from other sections that also cover this subject. Each card shows its own section.") + '</p>\n      ' + cardGrid(others) + '\n    </div>\n' : "";
       return '<section class="band' + band(st) + (get(st, "close", false) === true ? " band-top0" : "") + '" id="' + esc((ctx && ctx.id) || "features") + '">\n  <div class="wrap">\n' +
-        (e ? '    <p class="eyebrow" data-r="fade">' + txt(e) + '</p>\n' : "") + (h ? '    <h2 class="h-section" data-lines>' + ital(h) + '</h2>\n' : "") +
-        (shown.length ? '    ' + cardGrid(shown) + '\n' : '    <p class="muted empty" data-r>' + txt(empty) + '</p>\n') + '  </div>\n</section>';
+        (e && mine.length ? '    <p class="eyebrow" data-r="fade">' + txt(e) + '</p>\n' : "") + (h ? '    <h2 class="h-section" data-lines>' + ital(h) + '</h2>\n' : "") +
+        (mine.length ? '    ' + cardGrid(mine) + '\n' : (others.length ? "" : '    <p class="muted empty" data-r>' + txt(empty) + '</p>\n')) + also + '  </div>\n</section>';
     };
     // The front page: a lead story with two beside it, a column of the latest, and a column of figures.
     function frontPick(st) {
@@ -491,7 +508,7 @@
         '<form class="mf" data-mailform="contact" data-email="' + esc(mailTo()) + '" novalidate><div class="mf-row"><div class="field"><label>' + W("form.name", "Your name") + '<input name="name" type="text" autocomplete="name" required maxlength="120"></label></div><div class="field"><label>' + W("form.your-email", "Your email address") + '<input name="email" type="email" autocomplete="email" required maxlength="254"></label></div></div>' +
         (topics.length ? '<div class="field"><label>' + W("form.topic", "What it is about") + '<select name="topic">' + topics.map(function (x) { return '<option data-adh-b="topics.' + x.i + '">' + txt(x.t.trim()) + '</option>'; }).join("") + '</select></label></div>' : "") +
         '<div class="field"><label>' + W("form.message", "Your message") + '<textarea name="message" rows="6" required maxlength="5000"></textarea></label></div>' +
-        '<div class="hp" aria-hidden="true"><label>Leave this box empty<input name="website" type="text" tabindex="-1" autocomplete="off"></label></div><div><button class="btn" type="submit">' + (get(st, "button", "") ? txt(get(st, "button", "")) : W("btn.send", "Send message")) + '</button><p class="mf-note" role="status">' + W("form.note-contact", "", { email: esc(mailTo()) }) + '</p></div></form></div>');
+        '<div class="hp" aria-hidden="true" inert><label>Leave this box empty<input name="website" type="text" tabindex="-1" autocomplete="off" aria-hidden="true"></label></div><div><button class="btn" type="submit">' + (get(st, "button", "") ? txt(get(st, "button", "")) : W("btn.send", "Send message")) + '</button><p class="mf-note" role="status">' + W("form.note-contact", "", { email: esc(mailTo()) }) + '</p></div></form></div>');
     };
 
     // In the editor each section is marked, so a click on the page can find it.
@@ -653,7 +670,7 @@
       main = tplWrap("article", a.slug, main); AO_KIND = "article";
       var aDesc = String(a.description || "").trim() || String(a.summary || "");
       return page(folderOf(a) + "/" + a.slug + "/index.html", or(a.title, "[Feature title]") + " | " + NAME(), aDesc, main,
-        { head: articleLd(folderOf(a) === "industry-news" ? "NewsArticle" : "Article", folderOf(a) + "/" + a.slug + "/", a.title, aDesc, a.date, a.image, subs.map(function (x) { return x.name; })) + shareTag(a.image), lastmod: isoDate(a.date) });
+        { head: articleLd(folderOf(a) === "industry-news" ? "NewsArticle" : "Article", folderOf(a) + "/" + a.slug + "/", a.title, aDesc, a.date, a.image, subs.map(function (x) { return x.name; })) + shareTag(a.image), lastmod: isoDate(a.date), section: sectionHref(kick).replace(/^@@/, "") });
     }
     // A research area: its name and topics, every feature filed under it, then the sections it relates to.
     function artistPage(x) {
@@ -688,6 +705,30 @@
       if (!/<meta name="robots"/.test(pg.html)) pg.html = pg.html.replace("<head>\n", "<head>\n<meta name=\"robots\" content=\"noindex\">\n");
       return pg;
     }
+    // Search: a page with a search box, and an index of every feature, section and research area that the
+    // site's script reads in the visitor's browser. Nothing typed is sent anywhere.
+    function searchPage() {
+      var main = '<section class="page-head search-head">\n  <div class="wrap">\n    <p class="eyebrow">' + W("search.eyebrow", "Search") + '</p>\n    <h1>' + W("search.title", "Search the Report") + '</h1>\n' +
+        '    <form class="search-box search-main" role="search" action="./" method="get" data-search><label class="vh" for="search-q">' + W("search.label", "Search the Report") + '</label><input id="search-q" name="q" type="search" autocomplete="off" placeholder="' + W("search.placeholder", "A name, a fair or a term") + '"><button class="btn" type="submit">' + W("search.button", "Search") + '</button></form>\n' +
+        '    <p class="muted search-hint">' + W("search.hint", "Try an artist, an auction house, a fair, or a term such as buyer\u2019s premium.") + '</p>\n  </div>\n</section>\n' +
+        '<section class="band band-top0 search-out">\n  <div class="wrap">\n    <p class="search-count" role="status" aria-live="polite"></p>\n    <ol class="search-results"></ol>\n' +
+        '    <noscript><p class="muted">' + W("search.noscript", "Search needs JavaScript switched on. Every story is also listed on the Features page.") + ' <a class="textlink" href="../features/">' + W("search.all", "All features") + '</a></p></noscript>\n' +
+        '    <div class="search-browse">\n      <p class="eyebrow">' + W("search.browse", "Or browse the sections") + '</p>\n      ' +
+        linkList(pairs(get(hd(), "links", [])).map(function (x) { return { label: x.l[0], href: hrefOf(x.l[1]) }; }).concat([{ label: Wt("search.all", "All features"), href: "@@features/" }])) + '\n    </div>\n  </div>\n</section>';
+      return page("search/index.html", Wt("search.title", "Search the Report") + " | " + NAME(), "Search every feature, news story and report on " + plainText(NAME()) + ".", main, { noindex: true });
+    }
+    function searchIndex() {
+      var clean = function (s) { return plainText(s); };
+      var items = ARTICLES.map(function (a) {
+        return { t: clean(a.title), u: folderOf(a) + "/" + a.slug + "/", s: clean(a.kicker), c: clean(a.card || a.summary), k: [clean(a.summary), subjectsOf(a).map(function (x) { return x.name; }).join(" "), (Array.isArray(a.also) ? a.also : []).join(" ")].join(" "), b: clean(a.body) };
+      });
+      ARTISTS.forEach(function (x) { items.push({ t: clean(x.name), u: P.artists + "/" + x.slug + "/", s: Wt("item.subject", "Research area"), c: clean(x.line), k: (Array.isArray(x.topics) ? x.topics : []).join(" "), b: "" }); });
+      pairs(get(hd(), "links", [])).forEach(function (x) {
+        var h = String(x.l[1]).replace(/^\.?\//, ""), key = Object.keys(PAGES.pages || {}).find(function (k) { return PAGES.pages[k].path === h + "index.html"; }), pg = key && PAGES.pages[key];
+        items.push({ t: clean(x.l[0]), u: h, s: Wt("search.section", "Section"), c: clean(pg ? pg.description : ""), k: "", b: "" });
+      });
+      return JSON.stringify({ items: items });
+    }
     // A list page is published once the menu bar or the footer leads to it.
     function linked(k) {
       var want = P[k] + "/", f = shared("footer")[0];
@@ -703,11 +744,12 @@
       ["articles", "artists"].forEach(function (k) { if (listOn(k) && linked(k)) out.push(listPage(k)); });
       ARTICLES.forEach(function (a) { out.push(articlePage(a)); });
       ARTISTS.forEach(function (x) { out.push(artistPage(x)); });
+      out.push(searchPage());
       out.push(notFound());
       return out;
     }
     return {
-      all: all, forwards: function () { return []; }, sectionsPage: sectionsPage, notFound: notFound, address: SITE_URL, paths: P,
+      all: all, searchIndex: searchIndex, forwards: function () { return []; }, sectionsPage: sectionsPage, notFound: notFound, address: SITE_URL, paths: P,
       // in the editor a hidden feature or research area can still be opened; on the site it has no page
       articlePage: function (s) { var a = articleOf(s); return a && (opts.mark || a.hidden !== true) ? articlePage(a) : null; },
       featurePage: function (s) { var a = articleOf(s); return a && (opts.mark || a.hidden !== true) ? articlePage(a) : null; },
