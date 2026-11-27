@@ -595,6 +595,21 @@
         return '        <li><a href="@@' + folderOf(x) + '/' + esc(x.slug) + '/">' + (k ? '<span class="sec">' + txt(k) + '</span>' : "") + txt(or(x.title, "[Feature title]")) + '</a></li>';
       }).join("\n") + '\n      </ul>\n    </aside>\n' : "";
     }
+    // Further reading below a feature: the features that share the most research areas with it,
+    // leaving out the three already shown beside it, then the newest in the same section.
+    function furtherOf(a) {
+      var shown = [a.more1, a.more2, a.more3].map(function (x) { return x && articleOf(String(x)); }).filter(Boolean);
+      if (!shown.length) shown = ARTICLES.filter(function (x) { return x !== a; }).slice(0, 3);
+      var mine = subjectsOf(a), pool = ARTICLES.filter(function (x) { return x !== a && x.hidden !== true && shown.indexOf(x) < 0; });
+      var list = pool.map(function (x, i) { return [x, subjectsOf(x).filter(function (y) { return mine.indexOf(y) >= 0; }).length, i]; })
+        .filter(function (r) { return r[1] > 0; }).sort(function (p, q) { return q[1] - p[1] || p[2] - q[2]; }).map(function (r) { return r[0]; });
+      var kick = String(a.kicker || "").trim();
+      pool.forEach(function (x) { if (list.length < 2 && kick && String(x.kicker || "").trim() === kick && list.indexOf(x) < 0) list.push(x); });
+      list = list.slice(0, 2);
+      if (!list.length) return "";
+      var head = mine.length === 1 ? W("item.further-area", "Further reading in {area}", { area: txt(mine[0].name) }) : W("item.further", "Further reading");
+      return '\n<section class="band band-top0 further">\n  <div class="wrap">\n    <p class="eyebrow" data-r="fade">' + head + '</p>\n      ' + cardGrid(list) + '\n  </div>\n</section>';
+    }
     function articlePage(a) {
       var subs = subjectsOf(a), kick = String(a.kicker || "").trim(), date = String(a.date || "").trim();
       var label = kick ? '<a href="' + sectionHref(kick) + '">' + txt(kick) + '</a>' : "";
@@ -605,7 +620,8 @@
         M('<section class="article-body">\n  <div class="wrap">\n    <div class="article-grid">\n' + contents(body, /<ul class="sources">/.test(srcs)) +
           '    <div class="prose">\n<p class="standfirst">' + txt(or(a.summary, "[One or two sentences that open the feature]")) + '</p>\n\n' + body + M(srcs, "sources") + '\n    </div>\n' + moreOf(a) + '    </div>\n  </div>\n</section>', "body") + '\n</article>' +
         bandLinks(W("item.related-areas", "Related research areas"), subs.map(function (x) { return { label: or(x.name, "[Research area]"), href: "@@" + P.artists + "/" + x.slug + "/" }; }),
-          '\n<section class="band band-grey"><div class="wrap"><p class="eyebrow">' + W("item.related-areas", "Related research areas") + '</p><p class="muted empty">[Choose the research areas this feature is filed under]</p></div></section>');
+          '\n<section class="band band-grey"><div class="wrap"><p class="eyebrow">' + W("item.related-areas", "Related research areas") + '</p><p class="muted empty">[Choose the research areas this feature is filed under]</p></div></section>') +
+        (opts.mark ? "" : furtherOf(a));
       main = tplWrap("article", a.slug, main); AO_KIND = "article";
       var aDesc = String(a.description || "").trim() || String(a.summary || "");
       return page(folderOf(a) + "/" + a.slug + "/index.html", or(a.title, "[Feature title]") + " | " + NAME(), aDesc, main,
