@@ -722,3 +722,81 @@ body.home main>#opening .lead{font-size:calc(1rem * var(--b-scale, 1));margin-to
   .page-head-article{padding-top:1.5rem}
   .prose .standfirst{font-size:calc(1.3125rem * var(--h-scale, 1))}
 }
+
+/* A richer look, 27 November 2026. Same colours, typefaces and spacing; more depth and
+   finish. Short ink tabs mark labels (never long lines), cards sit as paper panels on the
+   salmon bands, the dark bands carry a soft light, and features get a drop cap and pull
+   quotes. Hover movement only runs for visitors who have not asked for less motion. */
+:root{--paper-shadow:0 1px 2px color-mix(in srgb, var(--ink) 8%, transparent),0 10px 28px -12px color-mix(in srgb, var(--ink) 22%, transparent)}
+/* Section labels get a short ink tab, the way a broadsheet marks a section */
+.band>.wrap>.eyebrow:first-child,.front-head,.more>.eyebrow{display:flex;align-items:center;gap:.7rem}
+.band>.wrap>.eyebrow:first-child::before,.front-head::before,.more>.eyebrow::before{content:"";flex:none;width:1.6rem;height:3px;background:var(--label)}
+.band-dark>.wrap>.eyebrow:first-child::before{background:var(--accent)}
+.briefing>.wrap>.eyebrow:first-child,.strip>.wrap>.eyebrow:first-child{justify-content:center}
+/* Headings: a firmer hierarchy */
+.h-section{letter-spacing:-.022em;line-height:1.02}
+@media (min-width:1024px){.h-section{font-size:calc(3.75rem * var(--h-scale, 1))}}
+.h-section em,.front-lead h2 em{color:var(--label)}
+
+/* The front page: a bigger lead, and the figures on a dark panel */
+.front-lead h2{letter-spacing:-.02em}
+@media (min-width:1024px){.front-lead h2{font-size:calc(3.75rem * var(--h-scale, 1));line-height:1.02}}
+.front-lead .eyebrow{font-weight:600}
+.front-item h3{font-size:calc(1.4375rem * var(--h-scale, 1))}
+.front-latest article h3{transition:color .25s}
+.front-figs{background:var(--band);color:var(--on-dark);padding:2rem 1.75rem 2.1rem;background-image:radial-gradient(120% 70% at 100% 0%, color-mix(in srgb, var(--accent) 16%, transparent), transparent 60%)}
+.front-figs .eyebrow,.front-figs .front-head{color:var(--on-dark-muted)}
+.front-figs .front-head::before{background:var(--accent)}
+.fig{margin-top:1.6rem}
+.fig b{font-size:calc(2.875rem * var(--h-scale, 1));letter-spacing:-.02em;color:var(--page)}
+.fig:first-of-type b{font-size:calc(3.5rem * var(--h-scale, 1));font-style:italic}
+.fig span,.fig-src{color:var(--on-dark-muted)}
+.fig-src a{color:var(--on-dark)}
+.front-figs :focus-visible{outline-color:var(--on-dark)}
+
+/* Cards on the salmon bands become paper panels */
+.band-grey .card{background:var(--page);padding:1.6rem 1.5rem 1.75rem;box-shadow:var(--paper-shadow)}
+.band-grey .grid-2{gap:1.5rem}
+.band-grey .card h3{margin-top:.75rem}
+.band-grey .card-plain h3{margin-top:0}
+@media (min-width:640px){.band-grey .grid-2,.band-grey .grid-3{gap:1.75rem}}
+@media (min-width:1024px){.band-grey .card{padding:2rem 2rem 2.25rem}}
+.band-grey .card{transition:opacity .72s var(--out),transform .72s var(--out),translate .4s var(--out),box-shadow .4s var(--out);transition-delay:var(--d,0ms),var(--d,0ms),0s,0s}
+.band-grey .card:hover,.band-grey .card:focus-within{box-shadow:0 1px 2px color-mix(in srgb, var(--ink) 10%, transparent),0 22px 40px -18px color-mix(in srgb, var(--ink) 35%, transparent)}
+@media (prefers-reduced-motion:no-preference){.band-grey .card:hover{translate:0 -4px}}
+/* The whole card answers to a click on its headline */
+.band-grey .card{position:relative}
+.band-grey .card h3 a::after{content:"";position:absolute;inset:0}
+
+/* What we cover: numbered, like the sections of a paper */
+#sections .grid-3{counter-reset:sec}
+#sections .card-plain{counter-increment:sec;position:relative;padding-top:2.6rem}
+#sections .card-plain::before{content:counter(sec, decimal-leading-zero);position:absolute;top:0;left:0;font-family:var(--serif);font-style:italic;font-size:calc(1.5rem * var(--h-scale, 1));line-height:1;color:var(--label)}
+
+/* Dark bands: a soft light from one corner instead of flat colour */
+.band-dark{background-image:radial-gradient(90% 120% at 85% 0%, color-mix(in srgb, var(--accent) 12%, transparent), transparent 55%),radial-gradient(70% 90% at 0% 100%, color-mix(in srgb, var(--page) 6%, transparent), transparent 60%)}
+.strip h2,.briefing h2{letter-spacing:-.022em}
+.strip h2 em,.briefing h2 em{color:var(--accent)}
+
+/* Buttons: a firmer press */
+.btn{transition:background-color .25s,color .25s,box-shadow .25s,translate .25s}
+.btn:hover{box-shadow:0 8px 20px -10px color-mix(in srgb, var(--ink) 55%, transparent)}
+@media (prefers-reduced-motion:no-preference){.btn:hover{translate:0 -1px}}
+
+/* Features: a drop cap, pull quotes and section heads with an ink tab */
+.prose>.standfirst+p::first-letter{float:left;font-family:var(--serif);font-size:4.4em;line-height:.82;padding:.08em .1em 0 0;color:var(--label)}
+.prose h2{position:relative;letter-spacing:-.015em}
+.prose h2::before{content:"";display:block;width:1.6rem;height:3px;background:var(--label);margin-bottom:1rem}
+.prose blockquote{margin:2.5rem 0;padding:1.5rem 1.75rem;background:var(--accent);font-family:var(--serif);font-style:italic;font-size:calc(1.5rem * var(--h-scale, 1));line-height:1.35}
+.prose blockquote p{margin-top:0}
+.prose blockquote cite,.prose blockquote footer{display:block;margin-top:.9rem;font-family:var(--sans);font-style:normal;font-size:calc(.8125rem * var(--b-scale, 1));letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.page-head-article h1{letter-spacing:-.022em}
+/* Further reading and related areas: the same paper panels */
+.further .card{background:var(--accent);padding:1.5rem 1.5rem 1.75rem;position:relative;transition:box-shadow .4s var(--out),translate .4s var(--out)}
+.further .card:hover{box-shadow:var(--paper-shadow)}
+.further .card h3 a::after{content:"";position:absolute;inset:0}
+@media (prefers-reduced-motion:no-preference){.further .card:hover{translate:0 -3px}}
+
+/* Focus: a ring in the label red on light pages, so it is easy to find */
+.band:not(.band-dark) :focus-visible,.front :focus-visible,.prose :focus-visible{outline-color:var(--label)}
+
