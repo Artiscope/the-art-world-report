@@ -105,7 +105,7 @@ const pagesOut = site.all();
 for (const pg of pagesOut) write(pg.path, pg.html);
 // the site's old addresses, each sending the visitor on to its new page
 for (const pg of site.forwards()) { if (written.includes(pg.path)) fail("An old address is also a page of the site: " + pg.path); write(pg.path, pg.html); }
-const listed = pagesOut.filter((p) => p.path !== "404.html");
+const listed = pagesOut.filter((p) => p.path !== "404.html" && !p.unlisted);
 const urls = listed.map((p) => p.url);
 if (D.site.indexed) {
   write("sitemap.xml", '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + listed.map((p) => "<url><loc>" + address + p.url + "</loc>" + (p.lastmod ? "<lastmod>" + p.lastmod + "</lastmod>" : "") + "</url>\n").join("") + "</urlset>\n");
@@ -114,6 +114,8 @@ if (D.site.indexed) {
   // Until its own web address is connected, the site asks search engines to stay away.
   write("robots.txt", "User-agent: *\nDisallow: /\n");
 }
+// the search page reads this list of every feature, section and research area
+if (typeof site.searchIndex === "function") write("search/index.json", site.searchIndex());
 fs.cpSync(path.join(ROOT, "assets"), path.join(OUT, "assets"), { recursive: true });
 const host = address.replace(/^https:\/\//, "").replace(/\/.*$/, "");
 if (D.site.indexed && !/\.github\.io$/.test(host) && host !== "example.org") write("CNAME", host + "\n");

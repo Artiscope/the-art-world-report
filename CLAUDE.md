@@ -15,8 +15,10 @@ This file is your standing brief. Read all of it before doing anything.
   research areas.
 - The newsletter is The Art Business Briefing. Its box opens the visitor's
   own email app with a request to join, sent to the email in the site's
-  details, and a line under the button says so. Nothing is sent or kept by
-  the site.
+  details, and a line under the button says so and gives the address for
+  webmail users. The button reads "Ask to join by email". Nothing is sent
+  or kept by the site. The first issue has not gone out yet, and the
+  wording says so.
 - Email shown on the site: info@artiscope.co.uk.
 - The footer's small print says the site is published by Artiscope (the
   owner's choice, 24 November 2026). Never remove or weaken it.
@@ -77,7 +79,12 @@ there is nothing to edit by hand.
   `data/content.json`, and the small icons are in `assets/`. Leave them
   alone unless the owner asks.
 - Headings rise into view word by word as the page scrolls. That motion
-  stays.
+  stays, but anything already on screen when a page opens shows at once,
+  and nothing moves for visitors who ask their system for less motion.
+- Search (27 November 2026): `search/` is drawn by `assets/render.js`,
+  and the build writes `search/index.json`, a plain list of every feature,
+  section and research area. The search runs in the visitor's browser and
+  sends nothing anywhere. A new feature is found by search automatically.
 
 ## Who you work for
 The owner is the Digital Product Manager at Artiscope (Grove Gallery,
