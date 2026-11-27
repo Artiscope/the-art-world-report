@@ -95,6 +95,10 @@ function checkPages() {
   }
 }
 
+// Who may read the site. Everyone is welcome; the search engines and the AI search tools that
+// link back to their sources are also named, so there is no doubt they are allowed in.
+const ROBOTS = "User-agent: *\nAllow: /\n\nUser-agent: Googlebot\nUser-agent: Bingbot\nUser-agent: OAI-SearchBot\nUser-agent: ChatGPT-User\nUser-agent: PerplexityBot\nUser-agent: Perplexity-User\nUser-agent: Claude-SearchBot\nUser-agent: Claude-User\nUser-agent: Applebot\nUser-agent: DuckDuckBot\nAllow: /\n";
+const LLMS_SECTIONS = [["features", "Features"], ["industry-news", "Industry news"], ["reports", "Reports"], ["research", "Research areas"]];
 checkPages();
 const D = R.fromFiles(content);
 const site = R.Site(D, pages, themeHead(), extras);
@@ -109,7 +113,23 @@ const listed = pagesOut.filter((p) => p.path !== "404.html" && !p.unlisted);
 const urls = listed.map((p) => p.url);
 if (D.site.indexed) {
   write("sitemap.xml", '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + listed.map((p) => "<url><loc>" + address + p.url + "</loc>" + (p.lastmod ? "<lastmod>" + p.lastmod + "</lastmod>" : "") + "</url>\n").join("") + "</urlset>\n");
-  write("robots.txt", "User-agent: *\nAllow: /\nSitemap: " + address + "sitemap.xml\n");
+  write("robots.txt", ROBOTS + "\nSitemap: " + address + "sitemap.xml\n");
+// llms.txt: a plain guide to the site for AI search tools, built from the finished pages so it always matches them.
+{
+  const meta = (html, re) => { const m = re.exec(html); return m ? m[1].replace(/&amp;/g, "&").replace(/&#x27;|&#39;/g, "'").replace(/&quot;/g, '"').replace(/\s+/g, " ").trim() : ""; };
+  const titleOf = (h) => meta(h, /<title>([^<]*)<\/title>/).replace(/ \| [^|]*$/, "");
+  const descOf = (h) => meta(h, /<meta name="description" content="([^"]*)"/);
+  const home = pagesOut.find((p) => p.path === "index.html");
+  const lines = ["# " + titleOf(home.html), "", "> " + descOf(home.html), ""];
+  for (const [folder, heading] of LLMS_SECTIONS) {
+    const items = listed.filter((p) => p.path.startsWith(folder + "/") && p.path !== folder + "/index.html" && !/<meta name="robots" content="noindex/.test(p.html));
+    if (!items.length) continue;
+    lines.push("## " + heading, "");
+    for (const p of items) { const d = descOf(p.html); lines.push("- [" + titleOf(p.html) + "](" + address + p.url + ")" + (d ? ": " + d : "")); }
+    lines.push("");
+  }
+  write("llms.txt", lines.join("\n"));
+}
 } else {
   // Until its own web address is connected, the site asks search engines to stay away.
   write("robots.txt", "User-agent: *\nDisallow: /\n");
