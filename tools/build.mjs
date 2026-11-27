@@ -14,6 +14,8 @@ const fail = (msg) => { console.error(msg); process.exit(1); };
 const read = (p) => { try { return JSON.parse(fs.readFileSync(path.join(ROOT, p), "utf8")); } catch (e) { fail(p + " could not be read: " + e.message); } };
 
 const content = read("data/content.json"), pages = read("data/pages.json");
+// The links to the same artist on the other Artiscope sites (the same file in all five repositories).
+if (fs.existsSync(path.join(ROOT, "data", "artiscope-links.json"))) R.setElsewhere(read("data/artiscope-links.json"));
 const theme = fs.existsSync(path.join(ROOT, "data", "theme.json")) ? read("data/theme.json") : {};
 
 // The colours and typefaces chosen in Artiscope Digital Home, for the page head.
