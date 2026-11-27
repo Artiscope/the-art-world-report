@@ -234,7 +234,63 @@
     }
     tick();
   }
-  function refresh(){timers.forEach(clearInterval);timers=[];setupMotion();setupScroll();aoWire();setupMenu();setupSignup();setupAnnounce();setupSlides();setupGalleries();setupMailForms();setupPopups()}
+  /* The weekly market quiz: one try per question, the answer and its sources shown at once, the score at the end.
+     The last score for each week is kept in this browser only. */
+  function setupQuiz(){
+    Array.prototype.forEach.call(document.querySelectorAll('[data-quiz]'),function(qz){
+      if(qz.getAttribute('data-wired'))return; qz.setAttribute('data-wired','1');
+      var key='tawr-quiz:'+qz.getAttribute('data-quiz'),qs=Array.prototype.slice.call(qz.querySelectorAll('.qz-q')),total=qs.length;
+      var end=qz.querySelector('.qz-end'),last=qz.querySelector('.qz-last');
+      function store(v){try{if(v==null)localStorage.removeItem(key);else localStorage.setItem(key,String(v))}catch(x){}}
+      function stored(){try{return localStorage.getItem(key)}catch(x){return null}}
+      var prev=stored();
+      if(prev!=null&&last&&!framed){last.textContent=SW('quiz.last','Your last score this week: {n} of {total}.',{n:prev,total:total});last.hidden=false}
+      function score(){return qs.filter(function(q){return q.getAttribute('data-right')==='1'}).length}
+      function finish(){
+        var n=score(),lines=[
+          SW('quiz.l0','A hard week to follow. Each answer links to the full story.'),
+          SW('quiz.l1','A start. The stories behind each answer are linked above.'),
+          SW('quiz.l2','Not bad. The stories behind each answer are linked above.'),
+          SW('quiz.l3','Good. You have been following the week closely.'),
+          SW('quiz.l4','Very good. Only one got away.'),
+          SW('quiz.l5','Full marks. You read the week closely.')];
+        end.querySelector('.qz-score').textContent=SW('quiz.score','{n} of {total}',{n:n,total:total});
+        end.querySelector('.qz-line').textContent=total===5?lines[n]:'';
+        end.hidden=false; store(n);
+        if(!framed)end.scrollIntoView({behavior:reduced?'auto':'smooth',block:'nearest'});
+      }
+      qs.forEach(function(q){
+        var right=Number(q.getAttribute('data-answer')),opts=Array.prototype.slice.call(q.querySelectorAll('.qz-opt'));
+        opts.forEach(function(b,i){b.addEventListener('click',function(){
+          if(q.classList.contains('done'))return;
+          q.classList.add('done'); q.setAttribute('data-right',i===right?'1':'0');
+          opts.forEach(function(o,k){o.disabled=true;o.setAttribute('aria-disabled','true');if(k===right)o.classList.add('is-right');if(k===i&&i!==right)o.classList.add('is-wrong');if(k===i)o.setAttribute('aria-pressed','true')});
+          var v=q.querySelector('.qz-verdict');
+          if(v)v.textContent=i===right?SW('quiz.right','Right.'):SW('quiz.wrong','Not quite.');
+          var ans=q.querySelector('.qz-ans'); if(ans)ans.hidden=false;
+          if(qs.every(function(x){return x.classList.contains('done')}))finish();
+        })});
+      });
+      var again=qz.querySelector('.qz-again');
+      if(again)again.addEventListener('click',function(){
+        qs.forEach(function(q){q.classList.remove('done');q.removeAttribute('data-right');var a=q.querySelector('.qz-ans');if(a)a.hidden=true;
+          Array.prototype.forEach.call(q.querySelectorAll('.qz-opt'),function(o){o.disabled=false;o.removeAttribute('aria-disabled');o.removeAttribute('aria-pressed');o.classList.remove('is-right','is-wrong')})});
+        end.hidden=true; var said=qz.querySelector('.qz-shared'); if(said)said.textContent='';
+        if(qs[0]&&!framed)qs[0].scrollIntoView({behavior:reduced?'auto':'smooth',block:'start'});
+      });
+      var share=qz.querySelector('.qz-share');
+      if(share)share.addEventListener('click',function(){
+        var n=score(),url=location.href.split('#')[0].split('?')[0];
+        var text=SW('quiz.share-text','I scored {n} of {total} on the weekly market quiz from {site}.',{n:n,total:total,site:siteName()});
+        var said=qz.querySelector('.qz-shared');
+        if(navigator.share){navigator.share({title:document.title,text:text,url:url}).catch(function(){});return}
+        var done=function(){if(said)said.textContent=SW('quiz.copied','Copied. Paste it wherever you like.')};
+        if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(text+' '+url).then(done,function(){if(said)said.textContent=text+' '+url});
+        else if(said)said.textContent=text+' '+url;
+      });
+    });
+  }
+  function refresh(){timers.forEach(clearInterval);timers=[];setupMotion();setupScroll();aoWire();setupMenu();setupSignup();setupAnnounce();setupSlides();setupGalleries();setupMailForms();setupPopups();setupQuiz()}
   window.SiteJS={refresh:refresh};
   refresh();
 })();

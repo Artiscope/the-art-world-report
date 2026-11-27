@@ -35,7 +35,9 @@ const KINDS = ["announcement", "columns", "space", "quote", "faq", "button",
   "picture-banner", "slideshow", "gallery", "logo-row", "picture", "text-picture",
   "artworks", "exhibitions", "career", "press", "signup", "visit", "contact-form", "signup-popup",
   // the six sections of The Art World Report's design
-  "awr-front", "awr-opening", "awr-features", "awr-cards", "awr-briefing", "awr-links", "awr-text"];
+  "awr-front", "awr-opening", "awr-features", "awr-cards", "awr-briefing", "awr-links", "awr-text",
+  // the weekly market quiz
+  "awr-quiz"];
 function checkPages() {
   for (const key of ["header", "footer"]) {
     const part = (pages.shared || {})[key];
